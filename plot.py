@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import scipy
 from functions import *
 
-# Import Data from 9/20
+# Import Data from 9/21
 raw001 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/001data.csv',delimiter=',',skiprows=0)
 raw003 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/003data.csv',delimiter=',',skiprows=0)
 raw004 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/004data.csv',delimiter=',',skiprows=0)
@@ -58,7 +59,7 @@ j28 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/028data.csv',delim
 j29 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/029data.csv',delimiter=',',skiprows=0)
 j30 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/030data.csv',delimiter=',',skiprows=0) 
 
-# Get Arms Kinematics for 9/20
+# Get Arms Kinematics for 9/21
 x01, y01, x01_length, y01_length = getArms920(raw001)
 x03, y03, x03_length, y03_length = getArms920(raw003)
 x04, y04, x04_length, y04_length = getArms920(raw004)
@@ -115,7 +116,7 @@ j30x, j30y, j30x_length, j30y_length = getArmsJuly(j30)#,f01x,f01y)
 
 
 ############################################################################
-####################### Front View 9/20 ####################################
+####################### Front View 9/21 ####################################
 ############################################################################
 input_x_920 = [ x01, x03, x04, x06, 
                 x07, x08, x09, x10, x11 ]
@@ -168,6 +169,7 @@ means_x_918, x_stds_918 = averageF( padded_x_918, x_max_length_918)
 means_y_918, y_stds_918 = averageF( padded_y_918, y_max_length_918)
 
 ###########################################################################
+####################################july###################################
 ###########################################################################
 
 x_array_july = [j01x, j02x, j03x, j04x, j05x,
@@ -215,9 +217,9 @@ plt.figure()
 plt.title('Y Coordinates / Height v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
-plt.plot(plot_x,means_x_920[0:350],color='c',label='9/20')
-plt.plot(plot_x,means_x_918[0:350],color='m',label='9/18')
-plt.plot(plot_x,means_x_july[0:350],color='y',label='0.02940726092 Nm')
+plt.plot(plot_x,means_x_918[0:350],color='springgreen',label='0.0136 Nm')
+plt.plot(plot_x,means_x_920[0:350],color='deepskyblue',label='0.0153 Nm')
+plt.plot(plot_x,means_x_july[0:350],color='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)
@@ -228,9 +230,9 @@ plt.figure()
 plt.title('X Coordinates v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Horizonal Position in Body Lengths')
-plt.plot(plot_x,means_y_920[0:350],color='c',label='9/20')
-plt.plot(plot_x,means_y_918[0:350],color='m',label='9/18')
-plt.plot(plot_x,means_y_july[0:350],color='y',label='0.02940726092 Nm')
+plt.plot(plot_x,means_y_918[0:350],color='springgreen',label='0.0136 Nm')
+plt.plot(plot_x,means_y_920[0:350],color='deepskyblue',label='0.0153 Nm')
+plt.plot(plot_x,means_y_july[0:350],color='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-0.55,0.05)
@@ -242,9 +244,9 @@ plt.figure()
 plt.title('Y Coordinates / Height v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
-plt.errorbar(plot_x,means_x_920[0:350],yerr=x_stds_920[0:350],fmt='k',ecolor='c',label='9/20')
-plt.errorbar(plot_x,means_x_918[0:350],yerr=x_stds_918[0:350],fmt='k',ecolor='m',label='9/18')
-plt.errorbar(plot_x,means_x_july[0:350],yerr=x_stds_july[0:350],fmt='k',ecolor='y',label='0.02940726092 Nm')
+plt.errorbar(plot_x,means_x_918[0:350],yerr=x_stds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,means_x_920[0:350],yerr=x_stds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0153 Nm')
+plt.errorbar(plot_x,means_x_july[0:350],yerr=x_stds_july[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)
@@ -255,9 +257,9 @@ plt.figure()
 plt.title('X Coordinates v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Horizonal Position in Body Lengths')
-plt.errorbar(plot_x,means_y_920[0:350],yerr=y_stds_920[0:350],fmt='k',ecolor='c',label='9/20')
-plt.errorbar(plot_x,means_y_918[0:350],yerr=y_stds_918[0:350],fmt='k',ecolor='m',label='9/18')
-plt.errorbar(plot_x,means_y_july[0:350],yerr=y_stds_july[0:350],fmt='k',ecolor='y',label='0.02940726092 Nm')
+plt.errorbar(plot_x,means_y_918[0:350],yerr=y_stds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,means_y_920[0:350],yerr=y_stds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0153 Nm')
+plt.errorbar(plot_x,means_y_july[0:350],yerr=y_stds_july[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-0.55,0.05)
