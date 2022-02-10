@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def getArms(trackingArray):
+def getArms920(trackingArray):
         x_list = []
         y_list = []
 
@@ -12,7 +12,29 @@ def getArms(trackingArray):
                 current_x = float(trackingArray[i,0])# / 251.7792923
 
                 if current_x > 250.0:
-                        if current_x < 650.0:
+                        if current_x < 629.4482:
+                                y_list = np.append(y_list, current_y / 251.7792923)
+                                x_list = np.append(x_list, current_x / 251.7792923)
+
+                i = i + 1
+
+        length_x = len(x_list)
+        length_y = len(y_list)
+
+        return x_list, y_list, length_x, length_y
+
+def getArms918(trackingArray):
+        x_list = []
+        y_list = []
+
+        length = len(trackingArray[:,:1])
+
+        for i in range(0,length):
+                current_y = float(trackingArray[i,1])# / 251.7792923
+                current_x = float(trackingArray[i,0])# / 251.7792923
+
+                if current_x > 250.0:
+                        if current_x < 634.4838:
                                 y_list = np.append(y_list, current_y / 251.7792923)
                                 x_list = np.append(x_list, current_x / 251.7792923)
 
