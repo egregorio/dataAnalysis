@@ -26,7 +26,37 @@ raw027 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9182021/027data.csv'
 raw028 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9182021/028data.csv',delimiter=',',skiprows=0)
 raw029 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9182021/029data.csv',delimiter=',',skiprows=0)
 raw030 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9182021/030data.csv',delimiter=',',skiprows=0)
-
+# Import Data from July
+j01 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/001data.csv',delimiter=',',skiprows=0)
+j02 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/002data.csv',delimiter=',',skiprows=0)
+j03 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/003data.csv',delimiter=',',skiprows=0)
+j04 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/004data.csv',delimiter=',',skiprows=0)
+j05 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/005data.csv',delimiter=',',skiprows=0)
+j06 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/006data.csv',delimiter=',',skiprows=0)
+j07 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/007data.csv',delimiter=',',skiprows=0)
+j08 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/008data.csv',delimiter=',',skiprows=0)
+j09 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/009data.csv',delimiter=',',skiprows=0)
+j10 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/010data.csv',delimiter=',',skiprows=0)
+j11 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/011data.csv',delimiter=',',skiprows=0)
+j12 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/012data.csv',delimiter=',',skiprows=0)
+j13 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/013data.csv',delimiter=',',skiprows=0)
+j14 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/014data.csv',delimiter=',',skiprows=0)
+j15 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/015data.csv',delimiter=',',skiprows=0)
+j16 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/016data.csv',delimiter=',',skiprows=0)
+j17 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/017data.csv',delimiter=',',skiprows=0)
+j18 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/018data.csv',delimiter=',',skiprows=0)
+j19 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/019data.csv',delimiter=',',skiprows=0)
+j20 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/020data.csv',delimiter=',',skiprows=0)
+j21 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/021data.csv',delimiter=',',skiprows=0)
+j22 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/022data.csv',delimiter=',',skiprows=0)
+j23 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/023data.csv',delimiter=',',skiprows=0)
+j24 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/024data.csv',delimiter=',',skiprows=0)
+j25 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/025data.csv',delimiter=',',skiprows=0)
+j26 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/026data.csv',delimiter=',',skiprows=0)
+j27 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/027data.csv',delimiter=',',skiprows=0)
+j28 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/028data.csv',delimiter=',',skiprows=0)
+j29 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/029data.csv',delimiter=',',skiprows=0)
+j30 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/030data.csv',delimiter=',',skiprows=0) 
 
 # Get Arms Kinematics for 9/20
 x01, y01, x01_length, y01_length = getArms920(raw001)
@@ -51,6 +81,38 @@ x27, y27, x27_length, y27_length = getArms918(raw027)
 x28, y28, x28_length, y28_length = getArms918(raw028)
 x29, y29, x29_length, y29_length = getArms918(raw029)
 x30, y30, x30_length, y30_length = getArms918(raw030)
+# Get Arms Kinematics for July
+j01x, j01y, j01x_length, j01y_length = getArmsJuly(j01)#,f01x,f01y) 
+j02x, j02y, j02x_length, j02y_length = getArmsJuly(j02)#,f01x,f01y) 
+j03x, j03y, j03x_length, j03y_length = getArmsJuly(j03)#,f01x,f01y) 
+j04x, j04y, j04x_length, j04y_length = getArmsJuly(j04)#,f01x,f01y) 
+j05x, j05y, j05x_length, j05y_length = getArmsJuly(j05)#,f01x,f01y) 
+j06x, j06y, j06x_length, j06y_length = getArmsJuly(j06)#,f01x,f01y) 
+j07x, j07y, j07x_length, j07y_length = getArmsJuly(j07)#,f01x,f01y) 
+j08x, j08y, j08x_length, j08y_length = getArmsJuly(j08)#,f01x,f01y) 
+j09x, j09y, j09x_length, j09y_length = getArmsJuly(j09)#,f01x,f01y) 
+j10x, j10y, j10x_length, j10y_length = getArmsJuly(j10)#,f01x,f01y) 
+j11x, j11y, j11x_length, j11y_length = getArmsJuly(j11)#,f01x,f01y) 
+j12x, j12y, j12x_length, j12y_length = getArmsJuly(j12)#,f01x,f01y) 
+j13x, j13y, j13x_length, j13y_length = getArmsJuly(j13)#,f01x,f01y) 
+j14x, j14y, j14x_length, j14y_length = getArmsJuly(j14)#,f01x,f01y) 
+j15x, j15y, j15x_length, j15y_length = getArmsJuly(j15)#,f01x,f01y) 
+j16x, j16y, j16x_length, j16y_length = getArmsJuly(j16)#,f01x,f01y) 
+j17x, j17y, j17x_length, j17y_length = getArmsJuly(j17)#,f01x,f01y) 
+j18x, j18y, j18x_length, j18y_length = getArmsJuly(j18)#,f01x,f01y) 
+j19x, j19y, j19x_length, j19y_length = getArmsJuly(j19)#,f01x,f01y) 
+j20x, j20y, j20x_length, j20y_length = getArmsJuly(j20)#,f01x,f01y) 
+j21x, j21y, j21x_length, j21y_length = getArmsJuly(j21)#,f01x,f01y) 
+j22x, j22y, j22x_length, j22y_length = getArmsJuly(j22)#,f01x,f01y) 
+j23x, j23y, j23x_length, j23y_length = getArmsJuly(j23)#,f01x,f01y) 
+j24x, j24y, j24x_length, j24y_length = getArmsJuly(j24)#,f01x,f01y) 
+j25x, j25y, j25x_length, j25y_length = getArmsJuly(j25)#,f01x,f01y) 
+j26x, j26y, j26x_length, j26y_length = getArmsJuly(j26)#,f01x,f01y) 
+j27x, j27y, j27x_length, j27y_length = getArmsJuly(j27)#,f01x,f01y) 
+j28x, j28y, j28x_length, j28y_length = getArmsJuly(j28)#,f01x,f01y) 
+j29x, j29y, j29x_length, j29y_length = getArmsJuly(j29)#,f01x,f01y) 
+j30x, j30y, j30x_length, j30y_length = getArmsJuly(j30)#,f01x,f01y) 
+
 
 ############################################################################
 ####################### Front View 9/20 ####################################
@@ -108,6 +170,44 @@ means_y_918, y_stds_918 = averageF( padded_y_918, y_max_length_918)
 ###########################################################################
 ###########################################################################
 
+x_array_july = [j01x, j02x, j03x, j04x, j05x,
+           j16x, j17x, j18x, j19x, j20x,
+           j11x, j12x, j13x, j14x, j15x,
+           j16x, j17x, j18x, j19x, j20x,
+           j21x, j22x, j23x, j24x, j25x,
+           j26x, j27x, j28x, j29x, j30x]
+y_array_july = [j01y, j02y, j03y, j04y, j05y,
+           j06y, j07y, j08y, j09y, j10y,
+           j11y, j12y, j13y, j14y, j15y,
+           j16y, j17y, j18y, j19y, j20y,
+           j21y, j22y, j23y, j24y, j25y,
+           j26y, j27y, j28y, j29y, j30y]
+
+x_lengths_july = [j01x_length, j02x_length, j03x_length, j04x_length, j05x_length,
+             j06x_length, j07x_length, j08x_length, j09x_length, j10x_length,
+             j11x_length, j12x_length, j13x_length, j14x_length, j15x_length,
+             j16x_length, j17x_length, j18x_length, j19x_length, j20x_length,
+             j21x_length, j22x_length, j23x_length, j24x_length, j25x_length,
+             j26x_length, j27x_length, j28x_length, j29x_length, j30x_length]
+y_lengths_july = [j01y_length, j02y_length, j03y_length, j04y_length, j05y_length,
+             j06y_length, j07y_length, j08y_length, j09y_length, j10y_length,
+             j11y_length, j12y_length, j13y_length, j14y_length, j15y_length,
+             j16y_length, j17y_length, j18y_length, j19y_length, j20y_length,
+             j21y_length, j22y_length, j23y_length, j24y_length, j25y_length,
+             j26y_length, j27y_length, j28y_length, j29y_length, j30y_length]
+
+x_max_july = max(x_lengths_july)
+y_max_july = max(y_lengths_july)
+
+x_padded_data_july = create_one(x_array_july, x_max_july)
+y_padded_data_july = create_one(y_array_july, y_max_july)
+
+means_x_july, x_stds_july = averageF(x_padded_data_july, x_max_july)
+means_y_july, y_stds_july = averageF(y_padded_data_july, y_max_july)
+
+###########################################################################
+###########################################################################
+
 plot_x = np.linspace(0,1,350)#x_max_length)
 
 # Plot for the Means in Y direction
@@ -117,9 +217,10 @@ plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
 plt.plot(plot_x,means_x_920[0:350],color='c',label='9/20')
 plt.plot(plot_x,means_x_918[0:350],color='m',label='9/18')
+plt.plot(plot_x,means_x_july[0:350],color='y',label='0.02940726092 Nm')
 plt.legend()
 plt.xlim(0,1)
-plt.ylim(1.6,2.6)
+plt.ylim(-1.2,0)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/yMean.png')
 
 # Plot for the Means in X direction
@@ -129,9 +230,11 @@ plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Horizonal Position in Body Lengths')
 plt.plot(plot_x,means_y_920[0:350],color='c',label='9/20')
 plt.plot(plot_x,means_y_918[0:350],color='m',label='9/18')
+plt.plot(plot_x,means_y_july[0:350],color='y',label='0.02940726092 Nm')
 plt.legend()
 plt.xlim(0,1)
-plt.ylim(0.2,0.8)
+plt.ylim(-0.55,0.05)
+#plt.ylim(0.2,0.8)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/xMean.png')
 
 # Plot for the STD in Y direction
@@ -141,9 +244,10 @@ plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
 plt.errorbar(plot_x,means_x_920[0:350],yerr=x_stds_920[0:350],fmt='k',ecolor='c',label='9/20')
 plt.errorbar(plot_x,means_x_918[0:350],yerr=x_stds_918[0:350],fmt='k',ecolor='m',label='9/18')
+plt.errorbar(plot_x,means_x_july[0:350],yerr=x_stds_july[0:350],fmt='k',ecolor='y',label='0.02940726092 Nm')
 plt.legend()
 plt.xlim(0,1)
-plt.ylim(1.6,2.6)
+plt.ylim(-1.2,0)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/yStd.png')
 
 # Plot for the STD in X direction
@@ -153,9 +257,10 @@ plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Horizonal Position in Body Lengths')
 plt.errorbar(plot_x,means_y_920[0:350],yerr=y_stds_920[0:350],fmt='k',ecolor='c',label='9/20')
 plt.errorbar(plot_x,means_y_918[0:350],yerr=y_stds_918[0:350],fmt='k',ecolor='m',label='9/18')
+plt.errorbar(plot_x,means_y_july[0:350],yerr=y_stds_july[0:350],fmt='k',ecolor='y',label='0.02940726092 Nm')
 plt.legend()
 plt.xlim(0,1)
-plt.ylim(0.2,0.8)
+plt.ylim(-0.55,0.05)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/xStd.png')
 
 print('youre amazing!!')
