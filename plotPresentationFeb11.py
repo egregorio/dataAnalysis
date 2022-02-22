@@ -223,7 +223,7 @@ plt.plot(plot_x,means_x_july[0:350],color='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/yMean.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/yMean.png')
 
 # Plot for the Means in X direction
 plt.figure()
@@ -237,7 +237,7 @@ plt.legend()
 plt.xlim(0,1)
 plt.ylim(-0.55,0.05)
 #plt.ylim(0.2,0.8)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/xMean.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/xMean.png')
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -250,7 +250,7 @@ plt.errorbar(plot_x,means_x_july[0:350],yerr=x_stds_july[0:350],fmt='k',ecolor='
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/yStd.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/yStd.png')
 
 # Plot for the STD in X direction
 plt.figure()
@@ -263,6 +263,6 @@ plt.errorbar(plot_x,means_y_july[0:350],yerr=y_stds_july[0:350],fmt='k',ecolor='
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-0.55,0.05)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_fall_2021/xStd.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/xStd.png')
 
 print('youre amazing!!')
