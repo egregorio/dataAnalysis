@@ -39,8 +39,8 @@ plt.errorbar(plot_x,ymean_920[0:350],yerr=ystds_920[0:350],fmt='k',ecolor='deeps
 plt.errorbar(plot_x,ymean_921[0:350],yerr=ystds_921[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
 plt.errorbar(plot_x,ymean_729[0:350],yerr=ystds_729[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.legend()
-#plt.xlim(0,1)
-#plt.ylim(-1.2,0)
+plt.xlim(0,1)
+plt.ylim(-1.2,0)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/yStd.png')
 
 # Plot for the STD in X direction
