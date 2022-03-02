@@ -25,6 +25,25 @@ ymean_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/ymeans_
 xstds_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/xstd_921.txt')
 ystds_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/ystd_921.txt')
 
+xmean_729 = xmean_729 - xmean_729[0]
+xmean_918 = xmean_918 - xmean_918[0]
+xmean_920 = xmean_920 - xmean_920[0]
+xmean_921 = xmean_921 - xmean_921[0]
+
+ymean_729 = ymean_729 - ymean_729[0]
+ymean_918 = ymean_918 - ymean_918[0]
+ymean_920 = ymean_920 - ymean_920[0]
+ymean_921 = ymean_921 - ymean_921[0]
+
+xstds_729 = xstds_729 - xstds_729[0]
+xstds_918 = xstds_918 - xstds_918[0]
+xstds_920 = xstds_920 - xstds_920[0]
+xstds_921 = xstds_921 - xstds_921[0]
+
+ystds_729 = ystds_729 - ystds_729[0]
+ystds_918 = ystds_918 - ystds_918[0]
+ystds_920 = ystds_920 - ystds_920[0]
+ystds_921 = ystds_921 - ystds_921[0]
 
 # Best Fit Line for Y Direction
 bestFit = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/linearFit.txt')
@@ -46,11 +65,11 @@ plt.errorbar(plot_x,ymean_918[0:350],yerr=ystds_918[0:350],fmt='k',ecolor='sprin
 plt.errorbar(plot_x,ymean_920[0:350],yerr=ystds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
 plt.errorbar(plot_x,ymean_921[0:350],yerr=ystds_921[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
 plt.errorbar(plot_x,ymean_729[0:350],yerr=ystds_729[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
-plt.plot(interpp,linearF,color='r')
-plt.plot(0.29181494661921703, -0.3999999999999997,'o',color='springgreen')
-plt.plot(0.3434163701067616, -0.4717241379310342, 'o', color='deepskyblue')
-plt.plot(0.42348754448398584, -0.5820689655172411,'o',color='mediumpurple')
-plt.plot(0.51067615658363, -0.7006896551724136,'o', color='hotpink')
+plt.plot(interpp,linearF,color='r',linewidth=2)
+#plt.plot(0.29181494661921703, -0.3999999999999997,'o',color='springgreen')
+#plt.plot(0.3434163701067616, -0.4717241379310342, 'o', color='deepskyblue')
+#plt.plot(0.42348754448398584, -0.5820689655172411,'o',color='mediumpurple')
+#plt.plot(0.51067615658363, -0.7006896551724136,'o', color='hotpink')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)

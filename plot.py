@@ -28,16 +28,38 @@ ystds_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/ystd_92
 
 plot_x = np.linspace(0,1,350)
 
+xmean_729 = xmean_729 - xmean_729[0]
+xmean_918 = xmean_918 - xmean_918[0]
+xmean_920 = xmean_920 - xmean_920[0]
+xmean_921 = xmean_921 - xmean_921[0]
+
+ymean_729 = ymean_729 - ymean_729[0]
+ymean_918 = ymean_918 - ymean_918[0]
+ymean_920 = ymean_920 - ymean_920[0]
+ymean_921 = ymean_921 - ymean_921[0]
+
+xstds_729 = xstds_729 - xstds_729[0]
+xstds_918 = xstds_918 - xstds_918[0]
+xstds_920 = xstds_920 - xstds_920[0]
+xstds_921 = xstds_921 - xstds_921[0]
+
+ystds_729 = ystds_729 - ystds_729[0]
+ystds_918 = ystds_918 - ystds_918[0]
+ystds_920 = ystds_920 - ystds_920[0]
+ystds_921 = ystds_921 - ystds_921[0]
+
+print('729 = ',xmean_729[1],', 918 = ',xmean_918[1],', 920 = ',xmean_920[1],', 921 = ',xmean_921[1])
+
 
 # Plot for the STD in Y direction
 plt.figure()
 plt.title('Y Coordinates / Height v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
-plt.errorbar(plot_x,ymean_918[0:350],yerr=ystds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
-plt.errorbar(plot_x,ymean_920[0:350],yerr=ystds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
-plt.errorbar(plot_x,ymean_921[0:350],yerr=ystds_921[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
-plt.errorbar(plot_x,ymean_729[0:350],yerr=ystds_729[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
+plt.errorbar(plot_x,ymean_918[1:351],yerr=ystds_918[1:351],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,ymean_920[1:351],yerr=ystds_920[1:351],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
+plt.errorbar(plot_x,ymean_921[1:351],yerr=ystds_921[1:351],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
+plt.errorbar(plot_x,ymean_729[1:351],yerr=ystds_729[1:351],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-1.2,0)
@@ -48,10 +70,10 @@ plt.figure()
 plt.title('X Coordinates v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Horizonal Position in Body Lengths')
-plt.errorbar(plot_x,xmean_918[0:350],yerr=xstds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
-plt.errorbar(plot_x,xmean_920[0:350],yerr=xstds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
-plt.errorbar(plot_x,xmean_921[0:350],yerr=xstds_921[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
-plt.errorbar(plot_x,xmean_729[0:350],yerr=xstds_729[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
+plt.errorbar(plot_x,xmean_918[1:351],yerr=xstds_918[1:351],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,xmean_920[1:351],yerr=xstds_920[1:351],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
+plt.errorbar(plot_x,xmean_921[1:351],yerr=xstds_921[1:351],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
+plt.errorbar(plot_x,xmean_729[1:351],yerr=xstds_729[1:351],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.legend()
 plt.xlim(0,1)
 plt.ylim(-0.55,0.05)

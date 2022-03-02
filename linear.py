@@ -18,6 +18,15 @@ ystds_920 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9202021/ystd_920.
 ymean_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/ymeans_921.txt')
 ystds_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/ystd_921.txt')
 
+ymean_729 = ymean_729 - ymean_729[0]
+ymean_918 = ymean_918 - ymean_918[0]
+ymean_920 = ymean_920 - ymean_920[0]
+ymean_921 = ymean_921 - ymean_921[0]
+
+ystds_729 = ystds_729 - ystds_729[0]
+ystds_918 = ystds_918 - ystds_918[0]
+ystds_920 = ystds_920 - ystds_920[0]
+ystds_921 = ystds_921 - ystds_921[0]
 
 input_y = [ ymean_729[1:75],
             ymean_918[1:75],
@@ -44,10 +53,10 @@ plt.figure()
 plt.title('Y Coordinates / Height v. Time')
 plt.xlabel('Non-Dimensional Time')
 plt.ylabel('Height in Body Lengths')
-plt.errorbar(plot_x,ymean_918[0:74],yerr=ystds_918[0:74],fmt='k',ecolor='springgreen',label='0.0136 Nm')
-plt.errorbar(plot_x,ymean_920[0:74],yerr=ystds_920[0:74],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
-plt.errorbar(plot_x,ymean_921[0:74],yerr=ystds_921[0:74],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
-plt.errorbar(plot_x,ymean_729[0:74],yerr=ystds_729[0:74],fmt='k',ecolor='hotpink',label='0.0294 Nm')
+plt.errorbar(plot_x,ymean_918[1:75],yerr=ystds_918[1:75],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,ymean_920[1:75],yerr=ystds_920[1:75],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
+plt.errorbar(plot_x,ymean_921[1:75],yerr=ystds_921[1:75],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
+plt.errorbar(plot_x,ymean_729[1:75],yerr=ystds_729[1:75],fmt='k',ecolor='hotpink',label='0.0294 Nm')
 plt.plot(plot_x,means_y,color='r')
 plt.legend()
 plt.xlim(0,0.2143)
