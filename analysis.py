@@ -52,6 +52,8 @@ inter = bestFit[1]
 interpp = np.linspace(0,1,100)
 linearF = slope * interpp + inter
 
+print('slope = ',slope)
+
 # points for the x axis on graphs, aka time
 plot_x = np.linspace(0,1,350)
 
