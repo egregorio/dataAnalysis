@@ -1,0 +1,28 @@
+# Plot for the Means in Y direction
+plt.figure()
+plt.title('Y Coordinates / Height v. Time')
+plt.xlabel('Non-Dimensional Time')
+plt.ylabel('Height in Body Lengths')
+plt.plot(plot_x,means_x_918[0:350],color='springgreen',label='0.0136 Nm')
+plt.plot(plot_x,means_x[0:350],color='deepskyblue',label='0.0156 Nm')
+plt.plot(plot_x,means_x_920[0:350],color='medium purple',label='0.0153 Nm')
+plt.plot(plot_x,means_x_july[0:350],color='hotpink',label='0.0294 Nm')
+plt.legend()
+plt.xlim(0,1)
+plt.ylim(-1.2,0)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/before_yMean.png')
+
+
+# Plot for the STD in Y direction
+plt.figure()
+plt.title('Y Coordinates / Height v. Time')
+plt.xlabel('Non-Dimensional Time')
+plt.ylabel('Height in Body Lengths')
+plt.errorbar(plot_x,means_x_918[0:350],yerr=x_stds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,means_x[0:350],yerr=x_stds[0:350],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
+plt.errorbar(plot_x,means_x_920[0:350],yerr=x_stds_920[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
+plt.errorbar(plot_x,means_x_july[0:350],yerr=x_stds_july[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
+plt.legend()
+plt.xlim(0,1)
+plt.ylim(-1.2,0)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_GWUpresentation_2022/before_yStd.png')

@@ -1,5 +1,30 @@
 import numpy as np
 
+#### ***** please note! ***** the length scaling in these functions is for ABOVE the water
+
+def getArms(trackingArray):
+        x_list = []
+        y_list = []
+
+        i = 0
+
+        length = len(trackingArray)# len(trackingArray[:,:1])
+
+        for i in range(0,length):
+                current_y = float(trackingArray[i,1])# / 251.7792923
+                current_x = float(trackingArray[i,0])# / 251.7792923
+
+                if current_x <800.0:
+                        if current_x > 639.5194:
+                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.784)
+                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.531)
+
+                i = i + 1
+
+        length_x = len(x_list)
+        length_y = len(y_list)
+
+        return x_list, y_list, length_x, length_y
 
 def getArmsJuly(trackingArray):
         x_list = []
@@ -11,10 +36,10 @@ def getArmsJuly(trackingArray):
                 current_y = float(trackingArray[i,1])# / 251.7792923
                 current_x = float(trackingArray[i,0])# / 251.7792923
 
-                if current_x > 250:# 327.3131:
-                        if current_x < 625:
-                                y_list = np.append(y_list, (current_y / 251.7792923)-0.66511158649)
-                                x_list = np.append(x_list, (current_x / 251.7792923)-2.47695700123)
+                if current_x < 800:
+                        if current_x > 625:
+                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.66511158649)
+                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.47695700123)
 
                 i = i + 1
 
@@ -33,10 +58,10 @@ def getArms920(trackingArray):
                 current_y = float(trackingArray[i,1])# / 251.7792923
                 current_x = float(trackingArray[i,0])# / 251.7792923
 
-                if current_x > 250.0:
-                        if current_x < 629.4482:
-                                y_list = np.append(y_list, (current_y / 251.7792923)-0.75)
-                                x_list = np.append(x_list, (current_x / 251.7792923)-2.5)
+                if current_x < 800.0:
+                        if current_x > 629.4482:
+                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.75)
+                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.5)
 
                 i = i + 1
 
@@ -55,10 +80,10 @@ def getArms918(trackingArray):
                 current_y = float(trackingArray[i,1])# / 251.7792923
                 current_x = float(trackingArray[i,0])# / 251.7792923
 
-                if current_x > 250.0:
-                        if current_x < 634.4838:
-                                y_list = np.append(y_list, (current_y / 251.7792923)-0.75691482365)
-                                x_list = np.append(x_list, (current_x / 251.7792923)-2.51738071804)
+                if current_x < 800.0:
+                        if current_x > 634.4838:
+                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.75691482365)
+                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.51738071804)
 
                 i = i + 1
 

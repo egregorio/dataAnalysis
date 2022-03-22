@@ -50,12 +50,16 @@ bestFit = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/l
 slope = bestFit[0]
 inter = bestFit[1]
 interpp = np.linspace(0,1,100)
-linearF = slope * interpp + inter
+
+
+linearF = slope * interpp #+ inter
+
+
 
 print('slope = ',slope)
 
 # points for the x axis on graphs, aka time
-plot_x = np.linspace(0,1,350)
+plot_x = np.linspace(0,0.07,350)
 
 
 # Plot for the STD in Y direction
@@ -73,23 +77,30 @@ plt.plot(interpp,linearF,color='r',linewidth=2)
 #plt.plot(0.42348754448398584, -0.5820689655172411,'o',color='mediumpurple')
 #plt.plot(0.51067615658363, -0.7006896551724136,'o', color='hotpink')
 plt.legend()
-plt.xlim(0,1)
-plt.ylim(-1.2,0)
+plt.xlim(0,0.07)
+plt.ylim(-2,0)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/yStd_interp.png')
 
-# Plot for the STD in X direction
-plt.figure()
-plt.title('X Coordinates v. Time')
-plt.xlabel('Non-Dimensional Time')
-plt.ylabel('Horizonal Position in Body Lengths')
-plt.errorbar(plot_x,xmean_918[0:350],yerr=xstds_918[0:350],fmt='k',ecolor='springgreen',label='0.0136 Nm')
-plt.errorbar(plot_x,xmean_920[0:350],yerr=xstds_920[0:350],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
-plt.errorbar(plot_x,xmean_921[0:350],yerr=xstds_921[0:350],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
-plt.errorbar(plot_x,xmean_729[0:350],yerr=xstds_729[0:350],fmt='k',ecolor='hotpink',label='0.0294 Nm')
-plt.legend()
-plt.xlim(0,1)
-plt.ylim(-0.55,0.05)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/xStd_interp.png')
+# points for the x axis on graphs, aka time
+plot_x = np.linspace(0,0.004,20)
 
+# Plot for the STD in Y direction
+plt.figure()
+plt.title('Y Coordinates / Height v. Time')
+plt.xlabel('Non-Dimensional Time')
+plt.ylabel('Height in Body Lengths')
+plt.errorbar(plot_x,ymean_918[0:20],yerr=ystds_918[0:20],fmt='k',ecolor='springgreen',label='0.0136 Nm')
+plt.errorbar(plot_x,ymean_920[0:20],yerr=ystds_920[0:20],fmt='k',ecolor='deepskyblue',label='0.0156 Nm')
+plt.errorbar(plot_x,ymean_921[0:20],yerr=ystds_921[0:20],fmt='k',ecolor='mediumpurple',label='0.0153 Nm')
+plt.errorbar(plot_x,ymean_729[0:20],yerr=ystds_729[0:20],fmt='k',ecolor='hotpink',label='0.0294 Nm')
+plt.plot(interpp,linearF,color='r',linewidth=2)
+#plt.plot(0.29181494661921703, -0.3999999999999997,'o',color='springgreen')
+#plt.plot(0.3434163701067616, -0.4717241379310342, 'o', color='deepskyblue')
+#plt.plot(0.42348754448398584, -0.5820689655172411,'o',color='mediumpurple')
+#plt.plot(0.51067615658363, -0.7006896551724136,'o', color='hotpink')
+plt.legend()
+plt.xlim(0,0.004)
+plt.ylim(-0.1,0)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/yStd_interp_zoom.png')
 
 print(';)')
