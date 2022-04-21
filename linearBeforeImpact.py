@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import scipy
 from linearFunctions import *
-from get_t_bar import get_time
+from get_t_bar import *
+from conversions import *
 
 # Import Data from 9/20
 sew014 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/9202021/014data.csv',delimiter=',',skiprows=0)
@@ -175,7 +176,7 @@ means_x, x_stds = averageF( padded_x, x_max_length)
 
 means_x_920 = means_x - means_x[0]
 
-print('920  = ',len(means_x))
+#print('920  = ',len(means_x))
 
 time_920 = get_time(means_x_920)
 
@@ -196,7 +197,7 @@ means_x_921, x_stds_921 = averageF( padded_x_921, x_max_length_921)
 
 means_x_921 = means_x_921 - means_x_921[0]
 
-print('921  = ',len(means_x_921))
+#print('921  = ',len(means_x_921))
 
 time_921 = get_time(means_x_921)
 
@@ -221,7 +222,7 @@ means_x_918, x_stds_918 = averageF( padded_x_918, x_max_length_918)
 
 means_x_918 = means_x_918 - means_x_918[0]
 
-print('918  = ',len(means_x_918))
+#print('918  = ',len(means_x_918))
 
 time_918 = get_time(means_x_918)
 
@@ -251,9 +252,30 @@ means_x_july, x_stds_july = averageF(x_padded_data_july, x_max_july)
 
 means_x_july = means_x_july - means_x_july[0]
 
-print('july = ',len(means_x_july))
+#print('july = ',len(means_x_july))
 
 time_july = get_time(means_x_july)
+
+###########################################################################
+###########################################################################
+
+# Convert frames to dimensional time in seconds
+time_729 = frames_to_sec(means_x_july)
+time_918 = frames_to_sec(means_x_918)
+time_920 = frames_to_sec(means_x_920)
+time_921 = frames_to_sec(means_x_921)
+
+# Convert position from pixels to body lengths in pixels
+b_729 = pixel_to_bl(means_x_july,135.601280856614)
+b_918 = pixel_to_bl(means_x_918, 135.601280856614)
+b_920 = pixel_to_bl(means_x_920, 135.601280856614)
+b_921 = pixel_to_bl(means_x_921, 135.601280856614)
+
+# Convert body lengths in pixels to body lengths in m
+m_729 = pixel_to_m(means_x_july,55.228133)
+m_918 = pixel_to_m(means_x_918,55.228133)
+m_920 = pixel_to_m(means_x_920,55.228133)
+m_921 = pixel_to_m(means_x_921,55.228133)
 
 ###########################################################################
 ###########################################################################
@@ -262,34 +284,44 @@ plt.figure()
 plt.title('Y Coordinates / Height v. Time')
 plt.xlabel('Dimensional Time (s)')
 plt.ylabel('Height in Body Lengths')
-plt.plot(time_918[-75:-50],means_x_918[-75:-50],color='springgreen',label='9/18')
-plt.plot(time_920[-75:-50],means_x_920[-75:-50],color='deepskyblue',label='9/20')
-plt.plot(time_921[-75:-50],means_x_921[-75:-50],color='mediumpurple',label='9/21')
-plt.plot(time_july[-75:-50],means_x_july[-75:-50],color='hotpink',label='7/29')
+plt.plot(time_918[-75:-30],b_918[-75:-30],color='springgreen',label='9/18')
+plt.plot(time_920[-75:-30],b_920[-75:-30],color='deepskyblue',label='9/20')
+plt.plot(time_921[-85:-40],b_921[-85:-40],color='mediumpurple',label='9/21')
+plt.plot(time_729[-95:-50],b_729[-95:-50],color='hotpink',label='7/29')
 #plt.xlim(-0.015,-0.01)
 plt.legend()
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/before_yMean.png')
 
 #plot_x = np.linspace(-0.0248,-0.0198,25)
 
-m_729, b_729 = np.polyfit(time_july[-75:-50],means_x_july[-75:-50],1)
-m_918, b_918 = np.polyfit(time_918[-75:-50],means_x_918[-75:-50],1)
-m_920, b_920 = np.polyfit(time_920[-75:-50],means_x_920[-75:-50],1)
-m_921, b_921 = np.polyfit(time_921[-75:-50],means_x_921[-75:-50],1)
+t_bar_729 = get_t_bar(means_x_july)
+t_bar_918 = get_t_bar(means_x_918)
+t_bar_920 = get_t_bar(means_x_920)
+t_bar_921 = get_t_bar(means_x_921)
+
+slope_729, b_729 = np.polyfit(time_729[-95:-50],m_729[-95:-50],1)
+slope_918, b_918 = np.polyfit(time_918[-75:-30],m_918[-75:-30],1)
+slope_920, b_920 = np.polyfit(time_920[-75:-30],m_920[-75:-30],1)
+slope_921, b_921 = np.polyfit(time_921[-85:-40],m_921[-85:-40],1)
 
 plot_x = np.linspace(0,1,100)
 
-linearF_729 = m_729 * plot_x + b_729
-linearF_918 = m_918 * plot_x + b_918
-linearF_920 = m_920 * plot_x + b_920
-linearF_921 = m_921 * plot_x + b_921
+#linearF_729 = m_729 * t_bar_729
+#linearF_918 = m_918 * t_bar_918
+#linearF_920 = m_920 * t_bar_920
+#linearF_921 = m_921 * t_bar_921
+
+linearF_729 = get_linearFit(slope_729,time_729)
+linearF_918 = get_linearFit(slope_918,time_918)
+linearF_920 = get_linearFit(slope_920,time_920)
+linearF_921 = get_linearFit(slope_921,time_921)
 
 #print('stand dev of slope = ',y_stds)
-print('slopes! 7/29 = ',m_729,', 9/18 = ',m_918,', 9/20 = ',m_920,', 9/21 = ',m_921)
+#print('slopes! 7/29 = ',m_729,', 9/18 = ',m_918,', 9/20 = ',m_920,', 9/21 = ',m_921)
 
-mean_m = np.mean([m_729, m_918, m_920, m_921])
+mean_m = np.mean([slope_729, slope_918, slope_920, slope_921])
 mean_b = np.mean([b_729, b_918, b_920, b_921])
-stds_m = np.std([m_729, m_918, m_920, m_921])
+stds_m = np.std([slope_729, slope_918, slope_920, slope_921])
 stds_b = np.std([b_729, b_918, b_920, b_921])
 
 print('average slope = ',mean_m,' average intercept = ',mean_b,' without refraction')
@@ -297,19 +329,9 @@ print('average slope = ',mean_m,' average intercept = ',mean_b,' without refract
 #mean_linearF = mean_m * plot_x + mean_b
 
 
-plt.figure()
-plt.plot(plot_x,linearF_729,color='springgreen',label='7/29')
-plt.plot(plot_x,linearF_918,color='deepskyblue',label='9/18')
-plt.plot(plot_x,linearF_920,color='mediumpurple',label='9/20')
-plt.plot(plot_x,linearF_921,color='hotpink',label='9/21')
-#plt.plot(plot_x,mean_linearF,color='red',label='interpolation')
-#plt.xlim(-0.015,-0.01)
-plt.legend()
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/line.png')
-
 # convert the slope to below the water length scale!
-mean_m = mean_m * ( 128.517417486157 / 135.601280856614 )
-mean_b = mean_b * ( 128.517417486157 / 135.601280856614 )
+#mean_m = mean_m * ( 128.517417486157 / 135.601280856614 )
+#mean_b = mean_b * ( 128.517417486157 / 135.601280856614 )
 
 print('average slope = ',mean_m,' average intercept = ',mean_b,' with refraction')
 
@@ -317,12 +339,28 @@ saveData = [mean_m, mean_b]
 
 np.savetxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/linearFit.txt',saveData)
 
+linearF = get_linearFit(mean_m,t_bar_918)
 
-impactVelocity = mean_m * ( 135.601280856614 ) * ( 1 / 55.228133 ) * ( 1 / 39.37 )
+plt.figure()
+plt.title('Linear Interpolation of Impact Velocity')
+plt.xlabel('Non Dimensional Time (t*)')
+plt.ylabel('Height in Body Lengths')
+plt.plot(t_bar_729,linearF_729,color='springgreen',label='7/29')
+plt.plot(t_bar_918,linearF_918,color='deepskyblue',label='9/18')
+plt.plot(t_bar_920,linearF_920,color='mediumpurple',label='9/20')
+plt.plot(t_bar_921,linearF_921,color='hotpink',label='9/21')
+plt.plot(t_bar_918,linearF,color='red',label='interpolation')
+#plt.ylim(-0.5,0)
+#plt.xlim(0,1)
+plt.legend()
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/line.png')
+
+
+impactVelocity = mean_m #* ( 135.601280856614 ) * ( 1 / 55.228133 ) * ( 1 / 39.37 )
 
 print(impactVelocity)
 
-print(( 135.601280856614 ) * ( 1 / 55.228133 ) * ( 1 / 39.37 ) )
+#print(( 135.601280856614 ) * ( 1 / 55.228133 ) * ( 1 / 39.37 ) )
 
 print('youre amazing!!')
 

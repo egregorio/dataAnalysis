@@ -16,8 +16,8 @@ def getArms(trackingArray):
 
                 if current_x <800.0:
                         if current_x > 639.5194:
-                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.784)
-                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.531)
+                                y_list = np.append(y_list, current_y)# / 128.517417486157)
+                                x_list = np.append(x_list, current_x)# / 128.517417486157)
 
                 i = i + 1
 
@@ -38,8 +38,8 @@ def getArmsJuly(trackingArray):
 
                 if current_x < 800:
                         if current_x > 625:
-                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.66511158649)
-                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.47695700123)
+                                y_list = np.append(y_list, current_y)# / 128.517417486157)
+                                x_list = np.append(x_list, current_x)# / 128.517417486157)
 
                 i = i + 1
 
@@ -60,8 +60,8 @@ def getArms920(trackingArray):
 
                 if current_x < 800.0:
                         if current_x > 629.4482:
-                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.75)
-                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.5)
+                                y_list = np.append(y_list, current_y)# / 128.517417486157)
+                                x_list = np.append(x_list, current_x)# / 128.517417486157)
 
                 i = i + 1
 
@@ -82,8 +82,8 @@ def getArms918(trackingArray):
 
                 if current_x < 800.0:
                         if current_x > 634.4838:
-                                y_list = np.append(y_list, current_y / 128.517417486157)#-0.75691482365)
-                                x_list = np.append(x_list, current_x / 128.517417486157)#-2.51738071804)
+                                y_list = np.append(y_list, current_y)# / 128.517417486157)
+                                x_list = np.append(x_list, current_x)# / 128.517417486157)
 
                 i = i + 1
 

@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import scipy
 from get_t_bar import *
+from conversions import *
 
 # Import data from 7/29
 xmean_729 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/july/xmeans_729.txt')
@@ -19,6 +20,8 @@ xstds_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/frontview/xstd_92
 
 # Length of the hypotenuse in half bodylengths is 1
 hype = 1
+# Length of half bodylength in pixels
+bodyLength = 135.601280856614
 
 # Center data around the zero position for arms
 xmean_729 = xmean_729 - xmean_729[1]
@@ -42,20 +45,32 @@ xstds_918[1] = 0
 xstds_920[1] = 0
 xstds_921[1] = 0
 
-angles_729 = np.arcsin(xmean_729) * (180 / np.pi) * -1
-angles_918 = np.arcsin(xmean_918) * (180 / np.pi) * -1
-angles_920 = np.arcsin(xmean_920) * (180 / np.pi) * -1
-angles_921 = np.arcsin(xmean_921) * (180 / np.pi) * -1
+# Convert from Pixels to Body Lengths
+mean_bl_729 = pixel_to_bl(xmean_729,bodyLength)
+mean_bl_918 = pixel_to_bl(xmean_918,bodyLength)
+mean_bl_920 = pixel_to_bl(xmean_920,bodyLength)
+mean_bl_921 = pixel_to_bl(xmean_921,bodyLength)
+
+stds_bl_729 = pixel_to_bl(xstds_729,bodyLength)
+stds_bl_918 = pixel_to_bl(xstds_918,bodyLength)
+stds_bl_920 = pixel_to_bl(xstds_920,bodyLength)
+stds_bl_921 = pixel_to_bl(xstds_921,bodyLength)
+
+# Convert Distances to Angles
+angles_729 = np.arcsin(mean_bl_729) * (180 / np.pi) * -1
+angles_918 = np.arcsin(mean_bl_918) * (180 / np.pi) * -1
+angles_920 = np.arcsin(mean_bl_920) * (180 / np.pi) * -1
+angles_921 = np.arcsin(mean_bl_921) * (180 / np.pi) * -1
 
 # Impact velocity
 # Best Fit Line for Y Direction
 bestFit = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/linearFit.txt')
 impactVelocity = bestFit[0]
 
-t_bar_729 = get_t_bar(xmean_729,impactVelocity, 135.601280856614)
-t_bar_918 = get_t_bar(xmean_918,impactVelocity, 135.601280856614)
-t_bar_920 = get_t_bar(xmean_920,impactVelocity, 135.601280856614)
-t_bar_921 = get_t_bar(xmean_921,impactVelocity, 135.601280856614)
+t_bar_729 = get_t_bar(xmean_729)#,impactVelocity, 135.601280856614)
+t_bar_918 = get_t_bar(xmean_918)#,impactVelocity, 135.601280856614)
+t_bar_920 = get_t_bar(xmean_920)#,impactVelocity, 135.601280856614)
+t_bar_921 = get_t_bar(xmean_921)#,impactVelocity, 135.601280856614)
 
 # points for the x axis on graphs, aka time
 plot_x = np.linspace(0,0.07,350)
@@ -86,8 +101,21 @@ plt.plot(t_bar_921,angles_921,color='mediumpurple',label='0.0153 Nm')
 plt.plot(t_bar_920,angles_920,color='deepskyblue',label='0.0156 Nm')
 plt.plot(t_bar_918,angles_918,color='springgreen',label='0.0136 Nm')
 plt.legend(loc='upper left')
+plt.xlim(0,1)
+plt.ylim(0,20)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/angleszoom.png')
+# Plot for the angles!
+plt.figure()
+plt.title('Change in Angle v. Time')
+plt.xlabel('Non-Dimensional Time')
+plt.ylabel('Angle in Degrees')
+plt.plot(t_bar_729,angles_729,color='hotpink',label='0.0294 Nm')
+plt.plot(t_bar_921,angles_921,color='mediumpurple',label='0.0153 Nm')
+plt.plot(t_bar_920,angles_920,color='deepskyblue',label='0.0156 Nm')
+plt.plot(t_bar_918,angles_918,color='springgreen',label='0.0136 Nm')
+plt.legend(loc='upper left')
 plt.xlim(0,2)
-plt.ylim(0,14)
+plt.ylim(0,60)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/angles.png')
 
 
