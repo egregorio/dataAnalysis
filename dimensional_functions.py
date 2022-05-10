@@ -9,6 +9,8 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         all_x_array  = []; all_y_array  = []
         all_x_length = []; all_y_length = []
 
+        first_index_list = [];
+        file_name_list = [];
         # Import the constants for that directory
         constants = np.loadtxt(experiment_constants)
         fps = constants[0] # Frames Per Second
@@ -23,7 +25,7 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
                 # Load the current file into a numpy array
                 trackingArray = np.loadtxt(current_file,delimiter=',',skiprows=0)
                 # Call the function to dimensionalize the data, changes pixels to meters
-                x_array, y_array, x_length, y_length = dimensionalize(trackingArray,fps,ppm,hoi,xoi)
+                x_array, y_array, x_length, y_length, index = dimensionalize(trackingArray,fps,ppm,hoi,xoi)
 
                 # Creates the list of all the position lists
                 all_x_array.append(x_array)
@@ -32,6 +34,9 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
                 # Creates the list of all the length lists
                 all_x_length.append(x_length)
                 all_y_length.append(y_length)
+
+                first_index_list.append(index[0])
+                file_name_list.append(filename)
 
         # Finds the maximum length of a list
         x_max_length = max(all_x_length)
@@ -44,7 +49,7 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         # Finds the average position at every time step
         means_x, x_stds = averageF( padded_x, x_max_length)
         means_y, y_stds = averageF( padded_y, y_max_length)
-        print(np.shape(means_x))
+
         # Converts the frames to seconds
         timeStamp = frames_to_sec(means_x,fps)
 
@@ -54,12 +59,16 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         please_save = os.path.join(save_path,save_name)
         np.savetxt(please_save,save_array)        
 
+        print(first_index_list)
+        print(file_name_list)
+
         print('done! :)')
         return
 
 def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_of_impact):
         x_list = []
         y_list = []
+        index_list = []
 
         cutoff = 365 # The shortest height we care about
 
@@ -73,7 +82,7 @@ def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_o
                         if current_y < height_of_impact: # Only heights between impact and hitting bumpers
                                 x_list = np.append(x_list, ( current_x - x_of_impact) / pixels_per_m )
                                 y_list = np.append(y_list, ( current_y - height_of_impact) / pixels_per_m )
-                        
+                                index_list = np.append(index_list, i)
                 i = i + 1
 
         # Finds the length of the lists created 
@@ -81,7 +90,7 @@ def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_o
         length_y = len(y_list)
 
         # Returns the x and y coordinate litsts and their lengths
-        return x_list, y_list, length_x, length_y
+        return x_list, y_list, length_x, length_y, index_list
 
 # This function padds the arrays with zeros so they're all the same length
 def padding(sample, max_length):
