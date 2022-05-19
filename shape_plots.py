@@ -4,8 +4,6 @@ import matplotlib.colors as mcolors
 from get_t_bar import *
 from conversions import *
 
-# Import data from 7/29
-data_729 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/7292021_data')
 # Import data from 9/18
 data_918 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9182021_data')
 # Import data from 9/20
@@ -87,11 +85,11 @@ plt.plot(time_918,y_918_mean,color='springgreen',label='0.0136 Nm')
 plt.plot(time_920,y_920_mean,color='deepskyblue',label='0.0154 Nm')
 plt.plot(time_921,y_921_mean,color='mediumpurple',label='0.0153 Nm')
 #plt.plot(time_729,y_729_mean,color='hotpink',label='0.0294 Nm')
-#plt.plot(time_04, mean_04, color='hotpink',label='No Hinge')
+plt.plot(time_04, mean_04, color='hotpink',label='No Hinge')
 plt.legend()
 plt.xlim(0,3)
-plt.ylim(-1.6,0)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/y_afterImpact_hinge.png')
+plt.ylim(-2,0)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/y_afterImpact.png')
 
 best_fit_data = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/beforeImpact_linearFit.txt')
 slope_fit = best_fit_data[0]
@@ -127,7 +125,6 @@ time_920 = data_920[:,0] * nonD_920
 time_921 = data_921[:,0] * nonD_921
 
 
-
 # Plot for the STD in Y direction
 plt.figure()
 plt.title('First Body Length in Y After Impact')
@@ -154,32 +151,5 @@ nonD_921 = fall_coefficient / 0.0153
 time_918 = data_918[:,0] * nonD_918
 time_920 = data_920[:,0] * nonD_920
 time_921 = data_921[:,0] * nonD_921
-
-#peaks for shape non d
-#2.002537316844583, -1.015521064301552
-#2.115447916428555, -1.2062084257206207
-#2.264566713146044, -1.3481152993348116
-
-
-peak_918 = (0.03752667029243191, -1.0146341463414634)
-peak_920 = (0.03496632221896833, -1.2097560975609756)
-peak_921 = (0.03775395252783029, -1.3481152993348116)
-
-
-# Plot for the STD in Y direction
-plt.figure()
-plt.title('First Body Length in Y After Impact')
-plt.xlabel('Non-Dimensional Time ( (m v l) / tau )')
-plt.ylabel('Depth (Arm Lengths)')
-plt.plot(time_918,y_918_mean,color='springgreen',label='0.0136 Nm')
-plt.plot(time_920,y_920_mean,color='deepskyblue',label='0.0154 Nm')
-plt.plot(time_921,y_921_mean,color='mediumpurple',label='0.0153 Nm')
-#plt.axvline(x=peak_918[0])
-#plt.axvline(x=peak_920[0])
-#plt.axvline(x=peak_921[0])
-plt.legend()
-#plt.xlim(0,1)
-plt.ylim(-1.6,0)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/y_afterImpact_torque.png')
 
 print(';)')

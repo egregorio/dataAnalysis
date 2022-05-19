@@ -67,6 +67,23 @@ def beforePlateau(data_file,wherePlateau):
         # Returns the x and y coordinate lists and their lengths
         return a_list, length_a
 
+def beforeMin(data_file,wherePlateau):
+        a_list = []
+        length = len(data_file) # Finds the length of the current data file
+
+        for i in range(0,length): # Iterates over every row of the data file
+                current_angle = float(data_file[i]) # This rows y coordinate
+
+                if current_angle > wherePlateau: # Uses the y coordinates to find the range we care about
+                        a_list = np.append( a_list, current_angle)
+                i = i + 1
+
+        # Finds the length of the lists created 
+        length_a = len(a_list)
+
+        # Returns the x and y coordinate lists and their lengths
+        return a_list, length_a
+
 def beforeBL1(data_file,nonD_time):
         t_list = []
         length = len(data_file) # Finds the length of the current data file

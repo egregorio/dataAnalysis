@@ -57,7 +57,6 @@ save_array = zip(velocity_918, velocity_920, velocity_921, velocity_404)
 please_save = os.path.join(save_path,'velocity_arrays')
 np.savetxt(please_save,save_array)
 
-print(len(velocity_918),len(time_918))
 
 
 def moving_average(a, n=3) :
@@ -65,7 +64,6 @@ def moving_average(a, n=3) :
     ret[n:] = ret[n:] - ret[:-n]
     return ret[n - 1:] / n
 
-print(len(velocity_918),len(time_918[0:-3]))
 
 plt.figure()
 plt.title('Y Velocity After Impact')
@@ -89,13 +87,51 @@ plt.figure()
 plt.title('Y Velocity After Impact')
 plt.xlabel('Non Dimensional Time ( T = t * v / l )')
 plt.ylabel('Velocity (Arm Length / T )')
-plt.plot(time_918[0:-20],velocity_918,color='springgreen',label='0.0136 Nm')
-plt.plot(time_920[0:-20],velocity_920,color='deepskyblue',label='0.0154 Nm')
-plt.plot(time_921[0:-20],velocity_921,color='mediumpurple',label='0.0153 Nm')
-plt.plot(time_404[0:-20],velocity_404,color='hotpink',label='No Hinge')
-plt.xlim(0,1.0)
-plt.ylim(0,2)
+plt.plot(time_918[0:-155],velocity_918[0:-135],color='springgreen',label='0.0136 Nm')
+plt.plot(time_920[0:-145],velocity_920[0:-125],color='deepskyblue',label='0.0154 Nm')
+plt.plot(time_921[0:-62],velocity_921[0:-42],color='mediumpurple',label='0.0153 Nm')
+#plt.plot(time_404[0:-20],velocity_404,color='hotpink',label='No Hinge')
+plt.xlim(0,2.0)
+#plt.ylim(0,2)
 plt.legend(loc='lower left')
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/velocity.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/velocity_hinge.png')
+
+# torque non d = ( mass * velocity * length ) / torque
+fall_coefficient   = ( mass_diver * impact_v * fall_bl   )
+spring_coefficient = ( mass_diver * impact_v * spring_bl )
+
+nonD_918 = fall_coefficient / 0.0136
+nonD_920 = fall_coefficient / 0.0154
+nonD_921 = fall_coefficient / 0.0153
+
+time_918 = data_918[:,0] * nonD_918
+time_920 = data_920[:,0] * nonD_920
+time_921 = data_921[:,0] * nonD_921
+
+velocity_918 = np.diff(y_918_mean)/np.diff(time_918)*-1
+velocity_920 = np.diff(y_920_mean)/np.diff(time_920)*-1
+velocity_921 = np.diff(y_921_mean)/np.diff(time_921)*-1
+velocity_404 = np.diff(y_404_mean)/np.diff(time_404)*-1
+
+velocity_918 = moving_average(velocity_918, n=20)
+velocity_920 = moving_average(velocity_920, n=20)
+velocity_921 = moving_average(velocity_921, n=20)
+velocity_404 = moving_average(velocity_404, n=20)
+
+print(np.argmin(velocity_918))
+print(np.argmin(velocity_920))
+print(np.argmin(velocity_921))
+
+plt.figure()
+plt.title('Y Velocity After Impact')
+plt.xlabel('Non Dimensional Time ( T = t * ( m v l ) / tau )')
+plt.ylabel('Velocity (Arm Length / T )')
+plt.plot(time_918[0:-155],velocity_918[0:-135],color='springgreen',label='0.0136 Nm')
+plt.plot(time_920[0:-145],velocity_920[0:-125],color='deepskyblue',label='0.0154 Nm')
+plt.plot(time_921[0:-65],velocity_921[0:-45],color='mediumpurple',label='0.0153 Nm')
+#plt.xlim(0,1.0)
+#plt.ylim(0,2)
+plt.legend(loc='lower left')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/velocity_torque.png')
 
 
