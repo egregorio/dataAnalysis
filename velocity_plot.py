@@ -14,6 +14,8 @@ data_920 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/92
 data_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9212021_data')
 # Import data from 04/04, no hinge, no hole
 data_404 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04042022_data')
+# Import data from 04/04, no hinge, no hole
+data_405 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04052022_asym1')
 
 # Import and assign constants
 exp_const = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
@@ -47,10 +49,16 @@ y_404_mean = data_404[:,3] / spring_bl
 y_404_mean = y_404_mean - y_404_mean[0]
 y_404_mean[0] = 0
 
+time_405 = data_405[:,0] * spring_shape
+y_405_mean = data_405[:,3] / spring_bl
+y_405_mean = y_405_mean - y_405_mean[0]
+y_405_mean[0] = 0
+
 velocity_918 = np.diff(y_918_mean)/np.diff(time_918)*-1
 velocity_920 = np.diff(y_920_mean)/np.diff(time_920)*-1
 velocity_921 = np.diff(y_921_mean)/np.diff(time_921)*-1
 velocity_404 = np.diff(y_404_mean)/np.diff(time_404)*-1
+velocity_405 = np.diff(y_405_mean)/np.diff(time_405)*-1
 
 save_path = '/Users/elizabeth/Box Sync/dataAnalysis/data_to_plot'
 save_array = zip(velocity_918, velocity_920, velocity_921, velocity_404)
@@ -82,6 +90,9 @@ velocity_918 = moving_average(velocity_918, n=20)
 velocity_920 = moving_average(velocity_920, n=20)
 velocity_921 = moving_average(velocity_921, n=20)
 velocity_404 = moving_average(velocity_404, n=20)
+velocity_405 = moving_average(velocity_405, n=20)
+
+print(velocity_404[0],velocity_404[-1])
 
 plt.figure()
 plt.title('Y Velocity After Impact')
@@ -95,6 +106,21 @@ plt.xlim(0,2.0)
 #plt.ylim(0,2)
 plt.legend(loc='lower left')
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/velocity_hinge.png')
+
+plt.figure()
+plt.title('Y Velocity After Impact')
+plt.xlabel('Non Dimensional Time ( T = t * v / l )')
+plt.ylabel('Velocity (Arm Length / T )')
+plt.plot(time_918[0:-155],velocity_918[0:-135],color='springgreen',label='0.0136 Nm')
+plt.plot(time_920[0:-145],velocity_920[0:-125],color='deepskyblue',label='0.0154 Nm')
+plt.plot(time_921[0:-62],velocity_921[0:-42],color='mediumpurple',label='0.0153 Nm')
+plt.axhline(y=1.17)
+plt.plot(time_404[0:-20],velocity_404,color='hotpink',label='No Hinge')
+plt.plot(time_405[0:-20],velocity_405,color='hotpink',label='No Hinge')
+plt.xlim(0,2.0)
+#plt.ylim(0,2)
+plt.legend(loc='lower left')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/velocity.png')
 
 # torque non d = ( mass * velocity * length ) / torque
 fall_coefficient   = ( mass_diver * impact_v * fall_bl   )

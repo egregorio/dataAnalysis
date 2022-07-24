@@ -59,7 +59,8 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         please_save = os.path.join(save_path,save_name)
         np.savetxt(please_save,save_array)        
 
-        print(len(means_y))
+	print(np.shape(padded_y))
+        print(len(padded_y))
         print(first_index_list)
         print(file_name_list)
 

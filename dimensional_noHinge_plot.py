@@ -19,22 +19,22 @@ bef_h04  = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04
 
 # Get all the dimensional values and convert meters to body lengths
 time_04 = data_04[:,0]
-mean_04 = data_04[:,3]# / body_length
+mean_04 = data_04[:,3] / body_length
 mean_04 = mean_04 - mean_04[0]
 mean_04[0] = 0
 
 time_h04 = data_h04[:,0]
-mean_h04 = data_h04[:,3]# / body_length
+mean_h04 = data_h04[:,3] / body_length
 mean_h04 = mean_h04 - mean_h04[1]
 mean_h04[0] = 0
 
 bef_time = bef_04[:,0]
-bef_mean = bef_04[:,1]# / body_length
+bef_mean = bef_04[:,1] / body_length
 bef_mean = bef_mean - bef_mean[0]
 bef_mean[0] = 0
 
 beh_time = bef_h04[:,0]
-beh_mean = bef_h04[:,1]# / body_length
+beh_mean = bef_h04[:,1] / body_length
 beh_mean = beh_mean - beh_mean[0]
 beh_mean[0] = 0
 
@@ -53,7 +53,7 @@ print(mean_m)
 
 saveData = [mean_m, mean_b]
 
-np.savetxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/beforeImpact_noHinge_linearFit.txt',saveData)
+np.savetxt('/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/no_hinge/beforeImpact_noHinge_linearFit.txt',saveData)
 
 plot_fit = np.linspace(-0.05,0,10)
 best_fit = get_linearFit(mean_m,plot_fit)
@@ -72,7 +72,7 @@ plt.plot(plot_fit,best_fit,color='red',label='best fit')
 plt.legend()
 #plt.xlim(-0.08,0)
 #plt.ylim(0,0.5)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/noHingeBefore.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/no_hinge/noHingeBefore.png')
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -84,7 +84,7 @@ plt.plot(time_h04,mean_h04,color='skyblue',label='hole')
 plt.legend()
 #plt.xlim(-0.08,0)
 #plt.ylim(0,0.5)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/noHingeAfter.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/no_hinge/noHingeAfter.png')
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -97,6 +97,6 @@ plt.plot(time_h04,mean_h04,color='skyblue',label='hole')
 plt.legend()
 plt.xlim(-0.05,0.05)
 plt.ylim(-0.15,0.15)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/noHinge.png')
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/no_hinge/noHinge.png')
 
 print(';)')

@@ -16,6 +16,8 @@ data_1021 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/1
 data_1026 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/10262021_data')
 # Import data from 04/04, no hinge, no hole
 data_04 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04042022_data')
+# Import data from 04/04, no hinge, no hole
+data_405_a1 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04052022_asym1')
 
 # Import and assign constants
 exp_const = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
@@ -74,12 +76,20 @@ x_1026_mean[0] = 0
 x_1026_mean[1] = 0
  
 time_04 = data_04[:,0] * spring_shape
-x_04_std = data_04[:,2] / fall_bl
+x_04_std = data_04[:,2] / spring_bl
 x_04_std = x_04_std - x_04_std[0]
 x_04_std[0] = 0
 mean_04 = data_04[:,1] / spring_bl
 mean_04 = mean_04 - mean_04[0]
 mean_04[0] = 0
+
+time_405_a1 = data_405_a1[:,0] * spring_shape
+x_405_a1_std = data_405_a1[:,2] / spring_bl
+x_405_a1_std = x_405_a1_std - x_405_a1_std[0]
+x_405_a1_std[0] = 0
+mean_405_a1 = data_405_a1[:,1] / spring_bl
+mean_405_a1 = mean_405_a1 - mean_405_a1[0]
+mean_405_a1[0] = 0
 
 # Convert half body lengths to angles
 angle_918 = np.arcsin(x_918_mean) * (180 / np.pi) * -1
@@ -91,6 +101,7 @@ angle_921 = np.arcsin(x_921_mean) * (180 / np.pi) * -1
 angle_1021 = np.arcsin(x_1021_mean) * (180 / np.pi) * -1
 angle_1026 = np.arcsin(x_1026_mean) * (180 / np.pi) * -1
 angle_404 = np.arcsin(mean_04)    * (180 / np.pi) * -1
+angle_405_a1 = np.arcsin(mean_405_a1)    * (180 / np.pi) * -1
 
 std_920 = np.arcsin(x_920_std)    * (180 / np.pi) * -1
 std_921 = np.arcsin(x_921_std)    * (180 / np.pi) * -1
@@ -175,10 +186,27 @@ plt.plot(time_921[0:range_921[0]],angle_921[0:range_921[0]],color='mediumpurple'
 plt.plot(time_1021[0:range_1021[0]],angle_1021[0:range_1021[0]],color='red',label='10/21')
 plt.plot(time_1026[0:range_1026[0]],angle_1026[0:range_1026[0]],color='darkorange',label='10/26')
 plt.plot(time_04[0:range_404[0]], angle_404[0:range_404[0]], color='hotpink',label='No Hinge')
+plt.plot(time_405_a1[0:range_404[0]], angle_405_a1[0:range_404[0]], color='hotpink',label='No Hinge')
 plt.legend(loc='upper left')
 plt.xlim(0,2.25)
 plt.ylim(0,80)
 plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/x_afterImpact_shape.png')
+
+# Plot for the STD in Y direction
+plt.figure()
+plt.title('Angle of Roll After Impact')
+plt.xlabel('Non-Dimensional Time ( t * v / l )')
+plt.ylabel('Angle of Bend in Degrees')
+plt.plot(time_918[0:range_918[0]],angle_918[0:range_918[0]],color='springgreen',label='0.0136 Nm')
+plt.plot(time_920[0:range_920[0]],angle_920[0:range_920[0]],color='deepskyblue',label='0.0154 Nm')
+plt.plot(time_921[0:range_921[0]],angle_921[0:range_921[0]],color='mediumpurple',label='0.0153 Nm')
+plt.plot(time_1021[0:range_1021[0]],angle_1021[0:range_1021[0]],color='red',label='10/21')
+plt.plot(time_1026[0:range_1026[0]],angle_1026[0:range_1026[0]],color='darkorange',label='10/26')
+plt.plot(time_04[0:range_404[0]], angle_404[0:range_404[0]], color='hotpink',label='No Hinge')
+plt.legend(loc='upper left')
+plt.xlim(0,0.8)
+plt.ylim(0,80)
+plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/x_afterImpact_shape_zoom.png')
 
 
 print(';)')

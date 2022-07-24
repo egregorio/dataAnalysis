@@ -1,7 +1,7 @@
 import numpy as np
 import glob
 import os
-from dimensional_functions import *
+from get_depth_only_functions import *
 
 path_for_joining   = '/Users/elizabeth/Box Sync/dataAnalysis/data_to_plot/09212021'
 path_with_only_csv = '/Users/elizabeth/Box Sync/dataAnalysis/data_to_plot/09212021/*.csv'
