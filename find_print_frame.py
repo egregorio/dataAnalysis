@@ -1,15 +1,12 @@
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.colors as mcolors
-import scipy
 import os
 
 # Path to Data Files
 save_path = '/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/frame_lists'
 
 # Names of Data Files
-name_frame     = 'frame_bl_1.5'
-name_depth     = 'depth_bl_1.5'
+name_frame     = 'frame_bl_2.0'
+name_depth     = 'depth_bl_2.0'
 
 # Join Paths
 depth_path = os.path.join(save_path,name_depth)
@@ -21,7 +18,13 @@ frame = np.loadtxt(frame_path)
 
 print(np.shape(depth),np.shape(frame))
 
-import pandas as pd
-table = [[1, 2222, 30, 500], [4, 55, 6777, 1]]
-df = pd.DataFrame(table, columns = ['a', 'b', 'c', 'd'], index=['row_1', 'row_2'])
-print(df)
+print depth[0,0],frame[0,0]
+print depth[1,0],frame[1,0]
+print depth[2,0],frame[2,0]
+print depth[3,0],frame[3,0]
+print depth[4,0],frame[4,0]
+print depth[5,0],frame[5,0]
+print depth[6,0],frame[6,0]
+print depth[7,0],frame[7,0]
+print depth[8,0],frame[8,0]
+
