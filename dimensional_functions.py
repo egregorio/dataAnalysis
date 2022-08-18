@@ -2,7 +2,7 @@ import numpy as np
 import glob
 import os
 
-def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,save_name):
+def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,save_name,save_file):
         # Create the empty lists to use for saving
         x_array = []; y_array = []; x_length = []; y_length = []
         # Create the empty lists to use for saving
@@ -55,9 +55,13 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
 
         # Creates and saves an array that has all the values in their own row
 #        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
-        save_array = padded_y
+        save_array = padded_x
+#	save_array = first_index_list
         please_save = os.path.join(save_path,save_name)
         np.savetxt(please_save,save_array)        
+	save_files = file_name_list
+        please_save_file = os.path.join(save_path,save_file)
+	np.savetxt(please_save_file,save_files,fmt="%s")
 
         print(len(means_y))
         print(first_index_list)

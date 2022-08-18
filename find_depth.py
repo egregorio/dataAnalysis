@@ -3,8 +3,8 @@ import glob
 import os
 from find_frame_functions import *
 
-directory_path  = '/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/find_bl/fall_2021'
-directory_files  = '/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/find_bl/fall_2021/*'
+directory_path  = '/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/find_bl/'
+directory_files  = '/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/find_bl/*'
 path_to_save     = '/Users/elizabeth/Box Sync/dataAnalysis/plots_paper/rough_draft/frame_lists'
 name_files     = 'files_bl_2.0'
 name_frame     = 'frame_bl_2.0'
