@@ -15,11 +15,11 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
 
 	# Constant
 	constants = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
-	body_length = constants[1] # fall 2021, summer 2022
-#	body_length = constants[2] # spring 2022
+#	body_length = constants[1] # fall 2021, summer 2022
+	body_length = constants[2] # spring 2022
 	imp_vel = constants[3]
-	frames_per_sec = constants[4] # fall 2021, summer 2022
-#	frames_per_sec = constants[5] # spring 2022
+#	frames_per_sec = constants[4] # fall 2021, summer 2022
+	frames_per_sec = constants[5] # spring 2022
 
 
         # Iterate over all the *.csv files in the directory
@@ -68,7 +68,7 @@ def find_the_frame(data_file,search_for,body_length,vel,fps):
 		diff_list = []
 		deep_list = []
 		for j in range(0,colm): # loop over frames
-			curent_t = j / fps
+			current_t = j / fps
 			nonD_deep = current_t * vel / body_length
 
 	                current_h = float(data_file[i,j])
