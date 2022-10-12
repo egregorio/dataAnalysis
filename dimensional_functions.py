@@ -55,6 +55,7 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
 
         # Creates and saves an array that has all the values in their own row
 #        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
+#        save_array = padded_y
         save_array = padded_x
 #	save_array = first_index_list
         please_save = os.path.join(save_path,save_name)

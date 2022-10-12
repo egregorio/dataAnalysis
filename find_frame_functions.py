@@ -7,7 +7,8 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
         # Create the empty lists to use for saving
         working_array = [];
         # Create the empty lists to use for saving
-	depth_list = [];
+	arm_d_in_m_list = [];
+	body_d_in_nd = [];
 	frame_list = [];
 	file_list = [];
 	index_list = [];
@@ -16,10 +17,12 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
 	# Constant
 	constants = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
 #	body_length = constants[1] # fall 2021, summer 2022
-	body_length = constants[2] # spring 2022
-	imp_vel = constants[3]
-#	frames_per_sec = constants[4] # fall 2021, summer 2022
-	frames_per_sec = constants[5] # spring 2022
+#	body_length = constants[2] # spring 2022
+	body_length = constants[3] # august 2022
+	imp_vel = constants[4]
+#	frames_per_sec = constants[5] # fall 2021, summer 2022
+#	frames_per_sec = constants[6] # spring 2022
+	frames_per_sec = constants[7] # august 2022
 
 
         # Iterate over all the *.csv files in the directory
@@ -29,10 +32,11 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
                 # Load the current file into a numpy array
                 trackingArray = np.loadtxt(current_file)#,delimiter=',',skiprows=0)
                 # Call the function to dimensionalize the data, changes pixels to meters
-                depth, frame, trials = find_the_frame(trackingArray,search_for,body_length,imp_vel,frames_per_sec)
+                arm_m, body_nd, frame, trials = find_the_frame(trackingArray,search_for,body_length,imp_vel,frames_per_sec)
 
                 # Creates the list of all the parameters
-		depth_list.append(depth)
+		arm_d_in_m_list.append(body_nd)
+		body_d_in_nd.append(arm_m)
 		frame_list.append(frame)
 		trial_list.append(trials)
                 file_list.append(filename)
@@ -46,7 +50,8 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
 #        save_array = zip(depth_array, frame_array)#, file_list)
         please_files = os.path.join(save_path,save_files)
         please_frame = os.path.join(save_path,save_frame)
-        please_depth = os.path.join(save_path,save_depth)
+        please_meter = os.path.join(save_path,save_depth)
+        please_nonD  = os.path.join(save_path,save_)
         np.savetxt(please_files,file_list,fmt="%s")
         np.savetxt(please_frame,frame_array)
         np.savetxt(please_depth,depth_array)
@@ -55,10 +60,11 @@ def iterate_over_files(directory_path,directory_files,save_path,save_files,save_
         return
 
 def find_the_frame(data_file,search_for,body_length,vel,fps):
-	desired_depth = []
+	actual_depth = []
+	nonD_depth = []
 	desired_frame = []
 
-	search_for = search_for * -1
+	search_for = search_for * 1
 	
 	shape = np.shape(data_file)
 	rows = shape[0] # trial number
@@ -66,30 +72,37 @@ def find_the_frame(data_file,search_for,body_length,vel,fps):
 
         for i in range(0,rows): # loop over trials
 		diff_list = []
+		nonD_list = []
 		deep_list = []
 		for j in range(0,colm): # loop over frames
-			current_t = j / fps
-			nonD_deep = current_t * vel / body_length
+#			current_t = j / fps
+#			current_d = current_t * vel
+			nonD_deep = (( j / fps ) * vel ) / body_length
 
 	                current_h = float(data_file[i,j])
 
 			diff = abs( nonD_deep - search_for )
 
-                	diff_list.append(diff) 
+	                current_h = float(data_file[i,j])
+
+                	diff_list.append(diff)
+			nonD_list.append(nonD_deep) 
 			deep_list.append(current_h)
 
 			j = j + 1
 
 		frame = diff_list.index(min(diff_list))
+		nonD  = nonD_list[frame]
 		depth = deep_list[frame]
 
-		desired_depth.append(depth)
+		nonD_depth.append(nonD)
+		actual_depth.append(depth)
 		desired_frame.append(frame)
 		
 		i = i + 1
 
         # Returns the lists
-        return desired_depth, desired_frame, rows
+        return actual_depth, nonD_depth, desired_frame, rows
 
 # This function padds the arrays with zeros so they're all the same length
 def padding(sample, max_length):
