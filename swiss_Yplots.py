@@ -147,9 +147,9 @@ plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/y_afterImp
 fall_coefficient   = ( mass_diver * impact_v * fall_bl   )
 spring_coefficient = ( mass_diver * impact_v * spring_bl )
 
-nonD_918 = fall_coefficient / 0.0136
-nonD_920 = fall_coefficient / 0.0154
-nonD_921 = fall_coefficient / 0.0153
+nonD_918 = fall_coefficient / 0.00768
+nonD_920 = fall_coefficient / 0.0180
+nonD_921 = fall_coefficient / 0.0147
 
 time_918 = data_918[:,0] * nonD_918
 time_920 = data_920[:,0] * nonD_920
@@ -171,15 +171,15 @@ plt.figure()
 plt.title('First Body Length in Y After Impact')
 plt.xlabel('Non-Dimensional Time ( (m v l) / tau )')
 plt.ylabel('Depth (Arm Lengths)')
-plt.plot(time_918,y_918_mean,color='springgreen',label='0.0136 Nm')
-plt.plot(time_920,y_920_mean,color='deepskyblue',label='0.0154 Nm')
-plt.plot(time_921,y_921_mean,color='mediumpurple',label='0.0153 Nm')
+plt.plot(time_918,y_918_mean,color='mediumorchid',label='0.0136 Nm')
+plt.plot(time_920,y_920_mean,color='royalblue',label='0.0154 Nm')
+plt.plot(time_921,y_921_mean,color='darkcyan',label='0.0153 Nm')
 #plt.axvline(x=peak_918[0])
 #plt.axvline(x=peak_920[0])
 #plt.axvline(x=peak_921[0])
 plt.legend()
 #plt.xlim(0,1)
 plt.ylim(-1.6,0)
-plt.savefig('/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/y_afterImpact_torque.png')
+plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/nonD_time.png')
 
 print(';)')

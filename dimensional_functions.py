@@ -54,9 +54,9 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         timeStamp = frames_to_sec(means_x,fps)
 
         # Creates and saves an array that has all the values in their own row
-#        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
+        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
 #        save_array = padded_y
-        save_array = padded_x
+#        save_array = padded_x
 #	save_array = first_index_list
         please_save = os.path.join(save_path,save_name)
         np.savetxt(please_save,save_array)        
@@ -86,9 +86,9 @@ def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_o
 
                 if current_y > cutoff: # Uses the y coordinates to find the range we care about
                         if current_y < height_of_impact: # Only heights between impact and hitting bumpers
-                                x_list = np.append(x_list, ( current_x - x_of_impact) / pixels_per_m )
-                                y_list = np.append(y_list, ( current_y - height_of_impact) / pixels_per_m )
-                                index_list = np.append(index_list, i)
+		                x_list = np.append(x_list, ( current_x - x_of_impact) / pixels_per_m )
+        		        y_list = np.append(y_list, ( current_y - height_of_impact) / pixels_per_m )
+                		index_list = np.append(index_list, i)
                 i = i + 1
 
         # Finds the length of the lists created 

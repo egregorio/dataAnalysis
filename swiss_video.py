@@ -15,7 +15,7 @@ exp_const = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_consta
 mass_diver = exp_const[0]
 fall_bl    = exp_const[1]
 spring_bl  = exp_const[2]
-impact_v   = exp_const[3]
+impact_v   = exp_const[4]
 
 fall_shape = impact_v / fall_bl
 spring_shape = impact_v / spring_bl
@@ -69,41 +69,41 @@ time_404 = data_04[:,0] * spring_shape
 
 path_918 = '/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/hinge video'
 
-#for i in range(0,len(time_918)):
-#	fig, (ax1, ax2) = plt.subplots(2,figsize=(6,7.5))
-#	ax1.set_title('Movement of Arms in Y Direction After Impact')
-#	ax1.set_ylabel('Depth in Arm Lengths')
-#	ax1.plot(time_918,y_918_mean,color='seagreen',label='0.0136 Nm')
-#	ax1.plot(time_918[i],y_918_mean[i],'go')
-#	ax1.set_xlim(0,2)
-#	ax2.set_title('Angle of Roll After Impact')
-#	ax2.plot(time_918,angle_918,color='seagreen',label='0.0136 Nm')
-#	ax2.plot(time_918[i],angle_918[i],'go')
-#	ax2.set_xlim(0,2)
-#	ax2.set_xlabel('Non-Dimensional Time ( t * v / l )')
-#	ax2.set_ylabel('Angle of Bend in Degrees')
-#        please_save_918 = os.path.join(path_918,str(i))
-#	plt.savefig(please_save_918)
-#	i = i + 1
-
-path_404 = '/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/no hinge video'
-
 for i in range(0,len(time_918)):
 	fig, (ax1, ax2) = plt.subplots(2,figsize=(6,7.5))
-	ax1.set_title('Movement of Arms in Y Direction After Impact')
+	ax1.set_title('Trajectory of Arms in Y Direction After Impact')
 	ax1.set_ylabel('Depth in Arm Lengths')
-	ax1.plot(time_404,y_04_mean,color='mediumvioletred',label='No Hinge')
-	ax1.plot(time_404[i],y_04_mean[i],'o',color='deeppink')
-	ax1.set_xlim(0,1.5)
+	ax1.plot(time_918,y_918_mean,color='seagreen',label='0.0136 Nm')
+	ax1.plot(time_918[i],y_918_mean[i],'go')
+	ax1.set_xlim(0,2)
 	ax2.set_title('Angle of Roll After Impact')
-	ax2.plot(time_404,angle_404,color='mediumvioletred',label='No Hinge')
-	ax2.plot(time_404[i],angle_404[i],'o',color='deeppink')
-	ax2.set_xlim(0,1.5)
+	ax2.plot(time_918,angle_918,color='seagreen',label='0.0136 Nm')
+	ax2.plot(time_918[i],angle_918[i],'go')
+	ax2.set_xlim(0,2)
 	ax2.set_xlabel('Non-Dimensional Time ( t * v / l )')
 	ax2.set_ylabel('Angle of Bend in Degrees')
-        please_save_404 = os.path.join(path_404,str(i))
-	plt.savefig(please_save_404)
+        please_save_918 = os.path.join(path_918,str(i))
+	plt.savefig(please_save_918)
 	i = i + 1
+
+#path_404 = '/Users/elizabeth/Box Sync/dataAnalysis/plots_switzerland/no hinge video'
+
+#for i in range(0,len(time_918)):
+#	fig, (ax1, ax2) = plt.subplots(2,figsize=(6,7.5))
+#	ax1.set_title('Trajectory of Arms in Y Direction After Impact')
+#	ax1.set_ylabel('Depth in Arm Lengths')
+#	ax1.plot(time_404,y_04_mean,color='mediumvioletred',label='No Hinge')
+#	ax1.plot(time_404[i],y_04_mean[i],'o',color='deeppink')
+#	ax1.set_xlim(0,1.5)
+#	ax2.set_title('Angle of Roll After Impact')
+#	ax2.plot(time_404,angle_404,color='mediumvioletred',label='No Hinge')
+#	ax2.plot(time_404[i],angle_404[i],'o',color='deeppink')
+#	ax2.set_xlim(0,1.5)
+#	ax2.set_xlabel('Non-Dimensional Time ( t * v / l )')
+#	ax2.set_ylabel('Angle of Bend in Degrees')
+#       please_save_404 = os.path.join(path_404,str(i))
+#	plt.savefig(please_save_404)
+#	i = i + 1
 
 
 print(';)')
