@@ -5,24 +5,24 @@ from get_t_bar import *
 from conversions import *
 
 # Import data from 9/18
-data_918 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9182021_data')
+data_918 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/09182021_data')
 # Import data from 9/20
-data_920 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9202021_data')
+data_920 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/09202021_data')
 # Import data from 9/21
-data_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9212021_data')
+data_921 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9212021_data')
 # Import data from 10/21
-data_1021 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/10212021_data')
+data_1021 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10212021_data')
 # Import data from 10/26
-data_1026 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/10262021_data')
+data_1026 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10262021_data')
 # Import data from 04/04, no hinge, no hole
-data_04 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04042022_data')
+data_04 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04042022_data')
 # Import data from 04/05, no hinge, no hole
-data_1 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04052022_asym1_data')
+data_1 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04052022_asym1_data')
 # Import data from 04/05, no hinge, no hole
-data_3 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/04052022_asym3_data')
+data_3 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04052022_asym3_data')
 
 # Import and assign constants
-exp_const = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
+exp_const = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/experiment_constants/constants.txt')
 mass_diver = exp_const[0]
 fall_bl    = exp_const[1]
 spring_bl  = exp_const[2]
@@ -140,14 +140,14 @@ plt.figure()
 plt.title('Angle of Roll After Impact')
 plt.xlabel('Non-Dimensional Time ( t * v / l )')
 plt.ylabel('Angle of Bend in Degrees')
-plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='0.0077 Nm')
+plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='0.00768 Nm')
 plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='0.0180 Nm')
 plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='0.0153 Nm')
 plt.errorbar(time_04, angle_404,yerr=std_404,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='Fixed')
 plt.legend(loc='upper left')
 plt.xlim(0,2)
 plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness_angle.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness_angle.png')
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -163,6 +163,6 @@ plt.errorbar(time_1, angle_1,yerr=std_1,linestyle='--',fmt='black',ecolor='silve
 plt.legend(loc='upper left')
 plt.xlim(0,2)
 plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/asymmetric_angle.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/asymmetric_angle.png')
 
 print(';)')

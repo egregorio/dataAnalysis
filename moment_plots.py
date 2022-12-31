@@ -5,14 +5,14 @@ from get_t_bar import *
 from conversions import *
 
 # Import data from 9/18
-data_918 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9182021_data')
+data_918 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9182021_data')
 # Import data from 9/20
-data_920 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9202021_data')
+data_920 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9202021_data')
 # Import data from 9/21
-data_921 = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/dimensionalData/9212021_data')
+data_921 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9212021_data')
 
 # Import and assign constants
-exp_const = np.loadtxt('/Users/elizabeth/Box Sync/dataAnalysis/experiment_constants/constants.txt')
+exp_const = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/experiment_constants/constants.txt')
 mass_diver = exp_const[0]
 fall_bl    = exp_const[1]
 impact_v   = exp_const[3]
@@ -74,7 +74,7 @@ plt.plot(angle_921[0:range_921[0]],color='mediumpurple',label='0.0153 Nm')
 plt.legend(loc='upper left')
 #plt.xlim(0,2.25)
 plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_afterImpact.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_afterImpact.png')
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -87,15 +87,15 @@ plt.plot(angle_921[0:50],color='mediumpurple',label='9/21')
 plt.legend(loc='upper left')
 #plt.xlim(0,2.25)
 #plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_first ten.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_first ten.png')
 
 
 # Import data from 9/18
-x_918 = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09182021_allData_X')
+x_918 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09182021_allData_X')
 # Import data from 9/20
-x_920 = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09202021_allData_X')
+x_920 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09202021_allData_X')
 # Import data from 9/21
-x_921 = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09212021_allData_X')
+x_921 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/dimensional data/09212021_allData_X')
 
 
 def findAngle(x_array,radius):
@@ -165,7 +165,7 @@ plt.plot(a_921[8])
 plt.plot(a_921[9])
 plt.ylim(-5,5)
 plt.xlim(0,50)
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_all.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/for moment - fall 2021/angle_all.png')
 
 
 print(';)')

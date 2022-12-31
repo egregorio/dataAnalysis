@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 
 # Import data from 04/04, no hinge, no hole
-all_stif = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness.txt')
-all_stat = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/statistics.txt')
-all_size = np.loadtxt('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/normalized.txt')
+all_stif = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness.txt')
+all_stat = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/statistics.txt')
+all_size = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/normalized.txt')
 
 x_axis = [0.1,0.25,0.5,0.75,1,1.25,1.5,1.75,2,2.25,2.5,2.75,3,3.25,3.5,3.75,4]
 
@@ -62,22 +62,21 @@ plt.errorbar(x_axis,block_10_m,yerr=block_10_s,marker='s',linestyle='--',markere
 plt.ylim(0,7)
 plt.xlim(0,4)
 plt.legend(loc='upper left')
-#plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/statistics.png')
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/normalized.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/normalized.png')
 
 plt.figure()
 plt.title('Development of Air Cavity After Impact')
 plt.xlabel('Depth in Arm Lengths')
 plt.ylabel('Estimated Size of Body and Air Cavity')
-plt.errorbar(x_axis,tor_136_m,yerr=tor_136_s,marker='o',linestyle='-',markeredgecolor='mediumorchid',fmt='mediumorchid',ecolor='mediumorchid',label='0.0768Nm')
+plt.errorbar(x_axis,tor_136_m,yerr=tor_136_s,marker='o',linestyle='-',markeredgecolor='mediumorchid',fmt='mediumorchid',ecolor='mediumorchid',label='0.00768Nm')
 plt.errorbar(x_axis,tor_154_m,yerr=tor_154_s,marker='o',linestyle='-',markeredgecolor='royalblue',fmt='royalblue',ecolor='royalblue',label='0.0180Nm')
 plt.errorbar(x_axis,tor_153_m,yerr=tor_153_s,marker='o',linestyle='-',markeredgecolor='turquoise',fmt='turquoise',ecolor='turquoise',label='0.0153Nm')
 plt.errorbar(x_axis,block_22_m,yerr=block_22_s,marker='s',linestyle='--',markeredgecolor='royalblue',fmt='royalblue',ecolor='royalblue',label='Fixed')
 plt.ylim(0,7)
 plt.xlim(0,4)
-plt.axhline(y = 3.15, color = 'r', linestyle = '-')
+#plt.axhline(y = 3.15, color = 'r', linestyle = '-')
 plt.legend(loc='upper left')
-plt.savefig('/Users/elizabeth/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness_line.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/all_trials/stiffness_same.png')
 
 
 print(';)')
