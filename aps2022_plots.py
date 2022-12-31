@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from get_t_bar import *
-from conversions import *
 
 #plt.plot(time_918,y_918_mean,color='springgreen',label='0.0136 Nm')
 #plt.plot(time_920,y_920_mean,color='deepskyblue',label='0.0154 Nm')
@@ -147,6 +146,18 @@ mean_H28 = hips_H28[:,3] / fall_bl
 mean_H28 = mean_H28 - mean_H28[0]
 mean_H28[0] = 0
 
+slope_H28, b_H28 = np.polyfit(time_H28[215:287],mean_H28[215:287],1)
+slope_H22, b_H22 = np.polyfit(time_H22[215:287],mean_H22[215:287],1)
+slope_H10, b_H10 = np.polyfit(time_H10[215:287],mean_H10[215:287],1)
+slope_T136, b_T136 = np.polyfit(time_T136[215:287],mean_T136[215:287],1)
+slope_T153, b_T153 = np.polyfit(time_T153[215:287],mean_T153[215:287],1)
+
+Linear_H28 = get_linearFit(slope_H28, time_H28)
+Linear_H22 = get_linearFit(slope_H22, time_H22)
+Linear_H10 = get_linearFit(slope_H10, time_H10)
+Linear_T136 = get_linearFit(slope_T136, time_T136)
+Linear_T153 = get_linearFit(slope_T153, time_T153)
+
 plt.figure()
 plt.title('Trajectory of Arms in Y Direction After Impact')# for 22.7 Degree Models')
 plt.xlabel('Non-Dimensional Time ( t * v / l )')
@@ -156,8 +167,13 @@ plt.errorbar(time_H10,mean_H10,yerr=std_H10,linestyle='-',fmt='black',ecolor='si
 plt.errorbar(time_T136,mean_T136,yerr=std_T136,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='0.00768Nm')
 plt.errorbar(time_H22,mean_H22,yerr=std_H22,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='0.0180Nm')
 plt.errorbar(time_T153,mean_T153,yerr=std_T153,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='0.0153Nm')
+plt.plot(time_H28,Linear_H28,color='limegreen')
+plt.plot(time_H22,Linear_H22,color='royalblue')
+plt.plot(time_H10,Linear_H10,color='black')
+plt.plot(time_T136,Linear_T136,color='mediumorchid')
+plt.plot(time_T153,Linear_T153,color='darkcyan')
 plt.legend(loc='lower left')
-plt.xlim(1.5,2)
+#plt.xlim(1.5,2)
 #plt.ylim(-2,0)
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/hinge_trajectory.png')#_error.png')
 
