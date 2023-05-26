@@ -1,0 +1,242 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from get_t_bar import *
+
+# Data for hinge diver models -- hinge / hips
+hips_918 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9182021_hinge')
+hips_921 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9212021_hinge')
+hips_H10 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10262021_hinge')
+hips_H22 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9202021_hinge')
+hips_H28 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10212021_hinge')
+# Import data from 9/18
+data_918 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/09182021_data')
+# Import data from 9/20
+data_920 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/09202021_data')
+# Import data from 9/21
+data_921 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9212021_data')
+# Import data from 10/21
+data_1021 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10212021_data')
+# Import data from 10/26
+data_1026 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10262021_data')
+
+# Import and assign constants
+exp_const = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/experiment_constants/constants.txt')
+mass_diver = exp_const[0]
+fall_bl    = exp_const[1]
+spring_bl  = exp_const[2]
+impact_v   = exp_const[3]
+
+fall_shape = 2.5 / fall_bl
+#fall_torque = 
+spring_shape = 2.5 / spring_bl
+#spring_torque = 
+
+# Get all the dimensional values and convert meters to body lengths
+time_S3 = data_918[:,0] * fall_shape
+std_X_S3 = data_918[:,2] / fall_bl
+std_X_S3 = std_X_S3 - std_X_S3[0]
+std_X_S3[0] = 0
+X_S3 = data_918[:,1] / fall_bl
+X_S3 = X_S3 - X_S3[0]
+X_S3[0] = 0
+
+time_S2 = data_920[:,0] * fall_shape
+std_X_S2 = data_920[:,2] / fall_bl
+std_X_S2 = std_X_S2 - std_X_S2[0]
+std_X_S2[0] = 0
+X_S2 = data_920[:,1] / fall_bl
+X_S2 = X_S2 - X_S2[0]
+X_S2[0] = 0
+
+time_S1 = data_921[:,0] * fall_shape
+std_X_S1 = data_921[:,2] / fall_bl
+std_X_S1 = std_X_S1 - std_X_S1[0]
+std_X_S1[0] = 0
+X_S1 = data_921[:,1] / fall_bl
+X_S1 = X_S1 - X_S1[1]
+X_S1[0] = 0
+X_S1[1] = 0
+
+time_H28 = data_1021[:,0] * fall_shape
+std_X_H28 = data_1021[:,2] / fall_bl
+std_X_H28 = std_X_H28 - std_X_H28[0]
+std_X_H28[0] = 0
+X_H28 = data_1021[:,1] / fall_bl
+X_H28 = X_H28 - X_H28[1]
+X_H28[0] = 0
+
+time_H10 = data_1026[:,0] * fall_shape
+std_X_H10 = data_1026[:,2] / fall_bl
+std_X_H10 = std_X_H10 - std_X_H10[0]
+std_X_H10[0] = 0
+X_H10 = data_1026[:,1] / fall_bl
+X_H10 = X_H10 - X_H10[1]
+X_H10[0] = 0
+
+# Get all the dimensional values and convert meters to body lengths
+std_Y_S3 = data_918[:,4] / fall_bl
+Y_S3 = data_918[:,3] / fall_bl
+Y_S3 = Y_S3 - Y_S3[0]
+Y_S3[0] = 0
+
+std_Y_S1 = data_921[:,4] / fall_bl
+Y_S1 = data_921[:,3] / fall_bl
+Y_S1 = Y_S1 - Y_S1[0]
+Y_S1[0] = 0
+
+std_Y_H10 = data_1026[:,4] / fall_bl
+Y_H10 = data_1026[:,3] / fall_bl
+Y_H10 = Y_H10 - Y_H10[0]
+Y_H10[0] = 0
+
+std_Y_S2 = data_920[:,4] / fall_bl
+Y_S2 = data_920[:,3] / fall_bl
+Y_S2 = Y_S2 - Y_S2[0]
+Y_S2[0] = 0
+
+std_Y_H28 = data_1021[:,4] / fall_bl
+Y_H28 = data_1021[:,3] / fall_bl
+Y_H28 = Y_H28 - Y_H28[0]
+Y_H28[0] = 0
+
+plt.figure()
+plt.errorbar(X_H28,Y_H28,xerr=std_X_H28,yerr=std_Y_H28,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
+plt.errorbar(X_S3, Y_S3, xerr=std_X_S3, yerr=std_Y_S3, linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
+plt.errorbar(X_S2, Y_S2, xerr=std_X_S2, yerr=std_Y_S2, linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
+plt.errorbar(X_S1, Y_S1, xerr=std_X_S1, yerr=std_Y_S1, linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
+plt.errorbar(X_H10,Y_H10,xerr=std_X_H10,yerr=std_Y_H10,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
+#plt.legend()
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
+XvY.png')#_error.png')
+
+hips_time_S3 = 1 + hips_918[:,0] * fall_shape
+hips_mean_S3 = hips_918[:,3] / fall_bl
+
+hips_time_S1 = 1 + hips_921[:,0] * fall_shape
+hips_mean_S1 = hips_921[:,3] / fall_bl
+
+hips_time_H10 = 1 + hips_H10[:,0] * fall_shape
+hips_mean_H10 = hips_H10[:,3] / fall_bl
+
+hips_time_S2 = 1 + hips_H22[:,0] * fall_shape
+hips_mean_S2 = hips_H22[:,3] / fall_bl
+
+hips_time_H28 = 1 + hips_H28[:,0] * fall_shape
+hips_mean_H28 = hips_H28[:,3] / fall_bl
+
+low = 50
+high = 200
+
+slope_H28, b_H28 = np.polyfit(hips_time_H28[low:high],hips_mean_H28[low:high],1)
+slope_S3, b_S3 = np.polyfit(hips_time_S3[low:high],hips_mean_S3[low:high],1)
+slope_S2, b_S2 = np.polyfit(hips_time_S2[low:high],hips_mean_S2[low:high],1)
+slope_S1, b_S1 = np.polyfit(hips_time_S1[low:high],hips_mean_S1[low:high],1)
+slope_H10, b_H10 = np.polyfit(hips_time_H10[low:high],hips_mean_H10[low:high],1)
+
+Linear_H28 = get_linearFit(slope_H28, time_H28)
+Linear_S3 = get_linearFit(slope_S3, time_S3)
+Linear_S2 = get_linearFit(slope_S2, time_S2)
+Linear_S1 = get_linearFit(slope_S1, time_S1)
+Linear_H10 = get_linearFit(slope_H10, time_H10)
+
+# Subtracking depth from hinge
+Y_H10 = Y_H10 - Linear_H10
+Y_S3  = Y_S3  - Linear_S3
+Y_S2  = Y_S2  - Linear_S2
+Y_S1  = Y_S1  - Linear_S1
+Y_H28 = Y_H28 - Linear_H28
+
+
+
+plt.figure()
+plt.plot(X_H28,Y_H28,color='limegreen',label='W28')
+plt.plot(X_S3, Y_S3, color='mediumorchid',label='W22 S3')
+plt.plot(X_S2, Y_S2, color='royalblue',label='W22 S2')
+plt.plot(X_S1, Y_S1, color='darkcyan',label='W22 S1')
+plt.plot(X_H10,Y_H10,color='black',label='W10')
+#plt.legend()
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
+XvYup.png')#_error.png')
+
+
+angle_H28 = np.arctan( X_H28 / Y_H28 )
+angle_S3  = np.arctan( X_S3 / Y_S3 )
+angle_S2  = np.arctan( X_S2 / Y_S2 )
+angle_S1  = np.arctan( X_S1 / Y_S1 )
+angle_H10 = np.arctan( X_H10 / Y_H10 )
+
+convert = -1 * (180 / np.pi)
+
+angle_H28 = angle_H28 * convert
+angle_S3  = angle_S3 * convert
+angle_S2  = angle_S2 * convert
+angle_S1  = angle_S1 * convert
+angle_H10 = angle_H10 * convert
+
+plt.figure()
+#plt.plot( time_H28[max_H28],angle_H28[max_H28],'o')
+plt.plot( time_H28[:-1],angle_H28[:-1], linestyle='-',color='limegreen',label='W28')
+plt.plot( time_S3[:-1], angle_S3[:-1], linestyle='-',color='mediumorchid',label='W22 S3')
+plt.plot( time_S2[:-1], angle_S2[:-1], linestyle='-',color='royalblue',label='W22 S2')
+plt.plot( time_S1[:-1], angle_S1[:-1], linestyle='-',color='darkcyan',label='W22 S1')
+plt.plot( time_H10[:-1],angle_H10[:-1],linestyle='-',color='black',label='W10')
+plt.ylim( 0, 100 )
+plt.xlim(0,4.5)
+plt.legend(loc='lower right')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
+angle_XY_circ.png')#_error.png')
+
+max_H28 = np.argmax(angle_H28[50:-50]) + 50
+max_S3 = np.argmax(angle_S3[50:-10]) + 50
+max_S2 = np.argmax(angle_S2[50:-10]) + 50
+max_S1 = np.argmax(angle_S1[50:-10]) + 50
+max_H10 = np.argmax(angle_H10[50:-10]) + 50
+
+
+#switch_H28 = np.where(angle_H28 == max_H28)
+#switch_S3 = np.where(angle_S3 == max_S3)
+#switch_S2 = np.where(angle_S2 == max_S2)
+#switch_S1 = np.where(angle_S1 == max_S1)
+#switch_H10 = np.where(angle_H10 == max_H10)
+
+print(angle_H28[max_H28])#*convert)
+
+
+add_H28 = np.arctan( Y_H28[max_H28:-1] / X_H28[max_H28:-1] ) * convert
+add_S3 = np.arctan( Y_S3[max_S3:-1] / X_S3[max_S3:-1] ) * convert
+add_S2 = np.arctan( Y_S2[max_S2:-1] / X_S2[max_S2:-1] ) * convert
+add_S1 = np.arctan( Y_S1[max_S1:-1] / X_S1[max_S1:-1] ) * convert
+add_H10 = np.arctan( Y_H10[max_H10:-1] / X_H10[max_H10:-1] ) * convert
+
+
+add_H28 = ( add_H28[:-1] - add_H28[0] ) # -1 * (angle_H28[max_H28] - angle_H28[max_H28:-1]) 
+add_S3 = ( add_S3[:-1] - add_S3[0] ) # -1 *  (angle_S3[max_S3] - angle_S3[max_S3:-1]) 
+add_S2 = ( add_S2[:-1] - add_S2[0] ) # -1 * (angle_S1[max_S2] - angle_S2[max_S2:-1]) 
+add_S1 = ( add_S1[:-1] - add_S1[0] ) # -1 * (angle_S1[max_S1] - angle_S1[max_S1:-1]) 
+add_H10 = ( add_H10[0:-1] - add_H10[0] ) # -1 * (angle_H10[max_H10] - angle_H10[max_H10:-1]) 
+
+#print(add_H28)
+
+angle_H28[max_H28+1:-1] = angle_H28[max_H28+1:-1] + add_H28[:] * 2
+angle_S3[max_S3+1:-1] = angle_S3[max_S3+1:-1] + add_S3[:] * 2
+angle_S2[max_S2+1:-1] = angle_S2[max_S2+1:-1] + add_S2[:] * 2
+angle_S1[max_S1+1:-1] = angle_S1[max_S1+1:-1] + add_S1[:] * 2
+angle_H10[max_H10+1:-1] = angle_H10[max_H10+1:-1] + add_H10[:] * 2
+
+
+plt.figure()
+#plt.plot( time_H28[max_H28],angle_H28[max_H28],'o')
+plt.plot( time_H28[:-1],angle_H28[:-1], linestyle='-',color='limegreen',label='W28')
+plt.plot( time_S3[:-1], angle_S3[:-1], linestyle='-',color='mediumorchid',label='W22 S3')
+plt.plot( time_S2[:-1], angle_S2[:-1], linestyle='-',color='royalblue',label='W22 S2')
+plt.plot( time_S1[:-1], angle_S1[:-1], linestyle='-',color='darkcyan',label='W22 S1')
+plt.plot( time_H10[:-1],angle_H10[:-1],linestyle='-',color='black',label='W10')
+plt.ylim( 0, 100 )
+plt.xlim(0,4.5)
+plt.legend(loc='lower right')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
+angle_XY.png')#_error.png')
+
+
+

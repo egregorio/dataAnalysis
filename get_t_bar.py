@@ -27,6 +27,13 @@ def get_linearFit(velocity,t_bar_list):
         velocityCurve.append(currentV)
     return velocityCurve
 
+def get_linearFit_withB(velocity,t_bar_list, y_intercept):
+    velocityCurve = []
+    for i in range(0,len(t_bar_list)):
+        currentV = velocity * t_bar_list[i] + y_intercept
+        velocityCurve.append(currentV)
+    return velocityCurve
+
 def get_velocity(velocity,t_bar_list):
     velocityCurve = []
     nonD_velocity = velocity * (( 135.601280856614  / ( 55.228133 * 39.37 )) / 2 ) 
