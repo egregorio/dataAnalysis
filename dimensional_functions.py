@@ -81,8 +81,8 @@ def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_o
         length = len(data_file) # Finds the length of the current data file
 
         for i in range(0,length): # Iterates over every row of the data file
-                current_x = float(data_file[i,3]) # This rows x coordinate # changed to get hip dot -- hinge dot
-                current_y = float(data_file[i,2]) # This rows y coordinate
+                current_x = float(data_file[i,1]) # This rows x coordinate # changed to get hip dot -- hinge dot
+                current_y = float(data_file[i,0]) # This rows y coordinate
 
                 if current_y > cutoff: # Uses the y coordinates to find the range we care about
                         if current_y < height_of_impact: # Only heights between impact and hitting bumpers
