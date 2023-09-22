@@ -2,21 +2,26 @@ import numpy as np
 import glob
 import os
 
-def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,save_name,save_file):
+def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,save_name,save_file,index_list):
         # Create the empty lists to use for saving
         x_array = []; y_array = []; x_length = []; y_length = []
         # Create the empty lists to use for saving
         all_x_array  = []; all_y_array  = []
         all_x_length = []; all_y_length = []
+	all_index = [];
 
         first_index_list = [];
         file_name_list = [];
         # Import the constants for that directory
         constants = np.loadtxt(experiment_constants)
         fps = constants[0] # Frames Per Second
-        ppm = constants[2] # Pixels Per Meter
+        ppm = constants[1] # Pixels Per Meter
         hoi = constants[3] # Height Of Impact
         xoi = constants[4] # X coordinate of Impact
+
+        index_file = os.path.join(directory_path,index_list)
+	zero_index_list = np.loadtxt(index_file,delimiter=' ',skiprows=0)
+	i = 0
 
         # Iterate over all the *.csv files in the directory
         for filename in glob.glob(csv_path):
@@ -24,12 +29,14 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
                 current_file = os.path.join(directory_path,filename)
                 # Load the current file into a numpy array
                 trackingArray = np.loadtxt(current_file,delimiter=',',skiprows=0)
+		zero_time = zero_index_list[i] 
                 # Call the function to dimensionalize the data, changes pixels to meters
-                x_array, y_array, x_length, y_length, index = dimensionalize(trackingArray,fps,ppm,hoi,xoi)
+                x_array, y_array, x_length, y_length, index = dimensionalize(trackingArray,fps,ppm,hoi,xoi,zero_time)
 
                 # Creates the list of all the position lists
                 all_x_array.append(x_array)
                 all_y_array.append(y_array)
+		all_index.append(index)
 
                 # Creates the list of all the length lists
                 all_x_length.append(x_length)
@@ -37,6 +44,8 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
 
                 first_index_list.append(index[0])
                 file_name_list.append(filename)
+
+		i = i+1
 
         # Finds the maximum length of a list
         x_max_length = max(all_x_length)
@@ -61,17 +70,18 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
 
         # Converts the frames to seconds
         timeStamp = frames_to_sec(means_x,fps)
+#        timeStamp = frames_to_sec(all_index,fps)
 
         # Creates and saves an array that has all the values in their own row
-#        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
+        save_array = zip(timeStamp, means_x, x_stds, means_y, y_stds)
 #        save_array = padded_y
 #        save_array = padded_x
-        save_array = first_index_list
+#	save_array = first_index_list
         please_save = os.path.join(save_path,save_name)
         np.savetxt(please_save,save_array)        
-        save_files = file_name_list
+	save_files = file_name_list
         please_save_file = os.path.join(save_path,save_file)
-        np.savetxt(please_save_file,save_files,fmt="%s")
+	np.savetxt(please_save_file,save_files,fmt="%s")
 
         print(len(means_y))
         print(first_index_list)
@@ -80,25 +90,26 @@ def iterate_over_files(csv_path,directory_path,experiment_constants,save_path,sa
         print('done! :)')
         return
 
-def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_of_impact):
+def dimensionalize(data_file,frames_per_second,pixels_per_m,height_of_impact,x_of_impact,zero_time):
         x_list = []
         y_list = []
         index_list = []
+
         cutoff = 10 #314 # The shortest height we care about
-#        height_of_impact = 614
+#	height_of_impact = 614
 
         length = len(data_file) # Finds the length of the current data file
-
-        for i in range(0,length): # Iterates over every row of the data file
+	zero_time = int(zero_time)
+        for i in range(0,zero_time): # Iterates over every row of the data file
                 current_x = float(data_file[i,1]) # This rows x coordinate # changed to get hip dot -- hinge dot
                 current_y = float(data_file[i,0]) # This rows y coordinate
+		if current_y > height_of_impact:
+	
+        	        x_list = np.append(x_list, ( current_x - x_of_impact) / pixels_per_m )
+     			y_list = np.append(y_list, ( current_y - height_of_impact) / pixels_per_m )
+	                index_list = np.append(index_list, i )
 
-                if current_y > cutoff: # Uses the y coordinates to find the range we care about
-                        if current_y < height_of_impact: # Only heights between impact and hitting bumpers
-                                x_list = np.append(x_list, ( current_x - x_of_impact) / pixels_per_m )
-                                y_list = np.append(y_list, ( current_y - height_of_impact) / pixels_per_m )
-                                index_list = np.append(index_list, i)
-                i = i + 1
+       	        i = i + 1
 
         # Finds the length of the lists created 
         length_x = len(x_list)

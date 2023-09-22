@@ -35,70 +35,67 @@ spring_shape = 2.5 / spring_bl
 # Get all the dimensional values and convert meters to body lengths
 time_918 = data_918[:,0] * fall_shape
 x_918_std = data_918[:,2]# / fall_bl
-x_918_std = x_918_std - x_918_std[0]
-x_918_std[0] = 0
+x_918_std = x_918_std# - x_918_std[0]
+std_918 = x_918_std
 x_918_mean = data_918[:,1]# / fall_bl
 x_918_mean = x_918_mean - x_918_mean[0]
 x_918_mean[0] = 0
 
 time_920 = data_920[:,0] * fall_shape
-x_920_std = data_920[:,2]# / fall_bl
-x_920_std = x_920_std - x_920_std[0]
-x_920_std[0] = 0
-x_920_mean = data_920[:,1]# / fall_bl
+x_920_std = data_920[:,2] #/ fall_bl
+x_920_std = x_920_std# - x_920_std[0]
+std_920 = x_920_std
+x_920_mean = data_920[:,1] #/ fall_bl
 x_920_mean = x_920_mean - x_920_mean[0]
 x_920_mean[0] = 0
 
 time_921 = data_921[:,0] * fall_shape
-x_921_std = data_921[:,2]# / fall_bl
-x_921_std = x_921_std - x_921_std[0]
-x_921_std[0] = 0
-x_921_mean = data_921[:,1]# / fall_bl
+x_921_std = data_921[:,2] #/ fall_bl
+x_921_std = x_921_std# - x_921_std[0]
+std_921 = x_921_std
+x_921_mean = data_921[:,1] #/ fall_bl
 x_921_mean = x_921_mean - x_921_mean[1]
 x_921_mean[0] = 0
 x_921_mean[1] = 0
  
 time_1021 = data_1021[:,0] * fall_shape
-x_1021_std = data_1021[:,2]# / fall_bl
-x_1021_std = x_1021_std - x_1021_std[0]
-x_1021_std[0] = 0
-x_1021_mean = data_1021[:,1]# / fall_bl
+x_1021_std = data_1021[:,2] #/ fall_bl
+x_1021_std = x_1021_std# - x_1021_std[0]
+std_1021 = x_1021_std
+x_1021_mean = data_1021[:,1] #/ fall_bl
 x_1021_mean = x_1021_mean - x_1021_mean[1]
 x_1021_mean[0] = 0
  
 time_1026 = data_1026[:,0] * fall_shape
-x_1026_std = data_1026[:,2]# / fall_bl
-x_1026_std = x_1026_std - x_1026_std[0]
-x_1026_std[0] = 0
-x_1026_mean = data_1026[:,1]# / fall_bl
+x_1026_std = data_1026[:,2] #/ fall_bl
+x_1026_std = x_1026_std# - x_1026_std[0]
+std_1026 = x_1026_std
+x_1026_mean = data_1026[:,1] #/ fall_bl
 x_1026_mean = x_1026_mean - x_1026_mean[1]
 x_1026_mean[0] = 0
  
 time_04 = data_04[:,0] * spring_shape
 x_04_std = data_04[:,2] / spring_bl
-x_04_std = x_04_std - x_04_std[0]
-x_04_std[0] = 0
+x_04_std = x_04_std# - x_04_std[0]
 mean_04 = data_04[:,1] / spring_bl
 mean_04 = mean_04 - mean_04[0]
 mean_04[0] = 0
 
 time_1 = data_1[:,0] * spring_shape
 x_1_std = data_1[:,2] / spring_bl
-x_1_std = x_1_std - x_1_std[0]
-x_1_std[0] = 0
+x_1_std = x_1_std# - x_1_std[0]
 mean_1 = data_1[:,1] / spring_bl
 mean_1 = mean_1 - mean_1[0]
 mean_1[0] = 0
 
 time_3 = data_3[:,0] * spring_shape
 x_3_std = data_3[:,2] / spring_bl
-x_3_std = x_3_std - x_3_std[0]
-x_3_std[0] = 0
+x_3_std = x_3_std# - x_3_std[0]
 mean_3 = data_3[:,1] / spring_bl
 mean_3 = mean_3 - mean_3[0]
 mean_3[0] = 0
 
-
+'''
 # Convert half body lengths to angles
 angle_918 = np.arcsin(x_918_mean) * (180 / np.pi) * -1
 std_918 = np.arcsin(x_918_std)    * (180 / np.pi) * -1
@@ -266,25 +263,74 @@ plt.xlim(0,1.2)
 plt.ylim(0,80)
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
 timeTurn_angle.png')#_error.png')
+'''
 
 
-switch_H28 = np.argmax(angle_1021)
-switch_S3 = np.argmax(angle_918[:-60])
-switch_S2 = np.argmax(angle_920)
-switch_S1 = np.argmax(angle_921)
-switch_H10 = np.argmax(angle_1026)
 
-angle_1021[switch_H28:] = angle_1021[switch_H28:] + (angle_1021[switch_H28] - angle_1021[switch_H28:]) * 2
-angle_918[switch_S3:] = angle_918[switch_S3:] + (angle_918[switch_S3] - angle_918[switch_S3:]) * 2
-angle_920[switch_S2:] = angle_920[switch_S2:] + (angle_920[switch_S2] - angle_920[switch_S2:]) * 2
-angle_921[switch_S1:] = angle_921[switch_S1:] + (angle_921[switch_S1] - angle_921[switch_S1:]) * 2
-angle_1026[switch_H10:] = angle_1026[switch_H10:] + (angle_1026[switch_H10] - angle_1026[switch_H10:]) * 2
+switch_H28 = np.argmin(x_1021_mean)
+switch_S3 = np.argmin(x_918_mean[:-60])
+switch_S2 = np.argmin(x_920_mean)
+switch_S1 = np.argmin(x_921_mean)
+switch_H10 = np.argmin(x_1026_mean)
 
-angle_1021 = (angle_1021 / angle_1021[switch_H28]) * 90
-angle_918 = (angle_918 / angle_918[switch_S3]) * 90
-angle_920 = (angle_920 / angle_920[switch_S2]) * 90
-angle_921 = (angle_921 / angle_921[switch_S1]) * 90
-angle_1026 = (angle_1026 / angle_1026[switch_H10]) * 90
+#angle_1021[switch_H28:] = angle_1021[switch_H28:] + (angle_1021[switch_H28] - angle_1021[switch_H28:]) * 2
+#angle_918[switch_S3:] = angle_918[switch_S3:] + (angle_918[switch_S3] - angle_918[switch_S3:]) * 2
+#angle_920[switch_S2:] = angle_920[switch_S2:] + (angle_920[switch_S2] - angle_920[switch_S2:]) * 2
+#angle_921[switch_S1:] = angle_921[switch_S1:] + (angle_921[switch_S1] - angle_921[switch_S1:]) * 2
+#angle_1026[switch_H10:] = angle_1026[switch_H10:] + (angle_1026[switch_H10] - angle_1026[switch_H10:]) * 2
+
+#angle_1021 = (angle_1021 / angle_1021[switch_H28]) * 90
+#angle_918 = (angle_918 / angle_918[switch_S3]) * 90
+#angle_920 = (angle_920 / angle_920[switch_S2]) * 90
+#angle_921 = (angle_921 / angle_921[switch_S1]) * 90
+#angle_1026 = (angle_1026 / angle_1026[switch_H10]) * 90
+
+x_array = [x_1021_mean,x_918_mean,x_920_mean,x_921_mean,x_1026_mean]
+std_array = [std_1021,std_918,std_920,std_921,std_1026]
+max_array = [switch_H28, switch_S3, switch_S2, switch_S1, switch_H10]
+angle_array = [x_1021_mean,x_918_mean,x_920_mean,x_921_mean,x_1026_mean]
+std_angle = [std_1021,std_918,std_920,std_921,std_1026]
+
+print(angle_array[1][100])
+
+for i in range(0,len(x_array)):
+	for j in range(0,len(x_array[i])):
+		alpha_i = x_array[i][j]
+		alpha_m = x_array[i][max_array[i]]
+		std = std_array[i][j] 
+
+		alpha = abs( alpha_i / alpha_m )
+		theta = np.arcsin(alpha)
+
+#		if (j < max_array[i]):
+#			theta = np.arcsin( abs( alpha_i / alpha_m ) )
+#		if (j == max_array[i]):
+#			theta = np.arcsin( abs( alpha_i / alpha_m ) )
+#		if (j > max_array[i]):
+#			theta = np.arcsin( abs( alpha_i / alpha_m ) )
+#			theta = ( np.pi / 2 ) + theta 
+		
+		sigma = np.arcsin(std / alpha_m)
+
+		angle_array[i][j] = theta
+		std_angle[i][j] = sigma
+
+#print(angle_array[1][100])
+#print(std_angle[1][100])
+
+angle_1021 = angle_array[0] * ( 180 / np.pi )
+angle_918  = angle_array[1] * ( 180 / np.pi )
+angle_920  = angle_array[2] * ( 180 / np.pi )
+angle_921  = angle_array[3] * ( 180 / np.pi )
+angle_1026 = angle_array[4] * ( 180 / np.pi )
+
+
+std_1021 = std_angle[0] * ( 180 / np.pi )
+std_918  = std_angle[1] * ( 180 / np.pi )
+std_920  = std_angle[2] * ( 180 / np.pi )
+std_921  = std_angle[3] * ( 180 / np.pi )
+std_1026 = std_angle[4] * ( 180 / np.pi )
+
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -296,14 +342,14 @@ plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ec
 plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
 plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
 plt.errorbar(time_1026,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
-plt.plot(time_1021[switch_H28],angle_1021[switch_H28],'o')
-plt.plot(time_918[switch_S3],angle_918[switch_S3],'o')
-plt.plot(time_920[switch_S2],angle_920[switch_S2],'o')
-plt.plot(time_921[switch_S1],angle_921[switch_S1],'o')
-plt.plot(time_1026[switch_H10],angle_1026[switch_H10],'o')
+#plt.plot(time_1021[switch_H28],angle_1021[switch_H28],'o')
+#plt.plot(time_918[switch_S3],angle_918[switch_S3],'o')
+#plt.plot(time_920[switch_S2],angle_920[switch_S2],'o')
+#plt.plot(time_921[switch_S1],angle_921[switch_S1],'o')
+#plt.plot(time_1026[switch_H10],angle_1026[switch_H10],'o')
 #plt.legend(loc='lower left')
-plt.xlim(0,5)
-plt.ylim(0,120)
+#plt.xlim(0,5)
+#plt.ylim(0,120)
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/angle_sin_and_cos.png')
 
 # Plot for the STD in Y direction
@@ -317,8 +363,8 @@ plt.errorbar(time_920[:switch_S2],angle_920[:switch_S2],yerr=std_920[:switch_S2]
 plt.errorbar(time_921[:switch_S1],angle_921[:switch_S1],yerr=std_921[:switch_S1],linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
 plt.errorbar(time_1026[:switch_H10],angle_1026[:switch_H10],yerr=std_1026[:switch_H10],linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 #plt.legend(loc='lower left')
-plt.xlim(0,5)
-plt.ylim(0,90)
+#plt.xlim(0,5)
+#plt.ylim(0,90)
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/angle_stop_at_90.png')
 
 

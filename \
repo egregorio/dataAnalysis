@@ -176,18 +176,18 @@ X_N1 = -1 * (X_N1 / X_N1[switch_N1]) #/ fall_bl
 #X_N2 = -1 * (X_N2 / X_N2[switch_N2]) #/ fall_bl
 X_H28 = -1 * (X_H28 / X_H28[switch_H28]) #/ fall_bl
 
-plt.errorbar(X_H28,Y_H28,xerr=std_X_H28,yerr=std_Y_H28,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-plt.errorbar(X_S3[:-60], Y_S3[:-60], xerr=std_X_S3[:-60], yerr=std_Y_S3[:-60], linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
-plt.errorbar(X_S2, Y_S2, xerr=std_X_S2, yerr=std_Y_S2, linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
-plt.errorbar(X_S1, Y_S1, xerr=std_X_S1, yerr=std_Y_S1, linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
-plt.errorbar(X_N1, Y_N1, xerr=std_X_N1, yerr=std_Y_N1, linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(X_H10,Y_H10,xerr=std_X_H10,yerr=std_Y_H10,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
+plt.errorbar(X_N1, Y_N1, xerr=std_X_N1, yerr=std_Y_N1, linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
+plt.errorbar(X_S1, Y_S1, xerr=std_X_S1, yerr=std_Y_S1, linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
+plt.errorbar(X_S2, Y_S2, xerr=std_X_S2, yerr=std_Y_S2, linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
+plt.errorbar(X_S3, Y_S3, xerr=std_X_S3, yerr=std_Y_S3, linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
+plt.errorbar(X_H28,Y_H28,xerr=std_X_H28,yerr=std_Y_H28,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
 #plt.errorbar(X_N2, Y_N2, xerr=std_X_N2, yerr=std_Y_N2, linestyle='-',fmt='orange',ecolor='bisque',elinewidth=3,label='W17 S1')
 plt.legend(loc='lower right')
 #plt.plot(X_S2[switch_S2],Y_S2[switch_S2],'o')
-plt.xlim(-1.2,0.2)
-plt.ylim(-6,0)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/\
+#plt.xlim(-0.2,0.2)
+#plt.ylim(-3,0)
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
 XvY.png')#_error.png')
 
 hips_time_S3 = 1 + hips_918[:,0] * fall_shape

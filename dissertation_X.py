@@ -20,8 +20,8 @@ data_1 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My
 # Import data from 04/05, no hinge, no hole
 data_3 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04052022_asym3_data')
 # Load 8/17/2022
-data_817_n1 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_asym_n1_data')
-data_817_n2 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_asym_n2_data')
+data_817_n1 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_data')
+#data_817_n2 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_asym_n2_data')
 
 # Import and assign constants
 exp_const = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/experiment_constants/constants.txt')
@@ -44,20 +44,13 @@ X_N1 = data_817_n1[:,1] #/ fall_bl
 X_N1 = X_N1 - X_N1[0]
 X_N1[0] = 0
 
-time_N2 = data_817_n2[:,0] * fall_shape
-std_X_N2 = data_817_n2[:,2] #/ fall_bl
-std_X_N2 = std_X_N2 - std_X_N2[0]
-std_X_N2[0] = 0
-X_N2 = data_817_n2[:,1] #/ fall_bl
-X_N2 = X_N2 - X_N2[0]
-X_N2[0] = 0
-
-
-angle_N1 = np.arcsin(X_N1)   * (180 / np.pi) * -1
-std_N1 = np.arcsin(std_X_N1) * (180 / np.pi) * -1
-
-angle_N2 = np.arcsin(X_N2)   * (180 / np.pi) * -1
-std_N2 = np.arcsin(std_X_N2) * (180 / np.pi) * -1
+#time_N2 = data_817_n2[:,0] * fall_shape
+#std_X_N2 = data_817_n2[:,2] #/ fall_bl
+#std_X_N2 = std_X_N2 - std_X_N2[0]
+#std_X_N2[0] = 0
+#X_N2 = data_817_n2[:,1] #/ fall_bl
+#X_N2 = X_N2 - X_N2[0]
+#X_N2[0] = 0
 
 time_918 = data_918[:,0] * fall_shape
 x_918_std = data_918[:,2]# / fall_bl
@@ -150,92 +143,33 @@ std_1 = np.arcsin(x_1_std)    * (180 / np.pi) * -1
 angle_3 = np.arcsin(mean_3)    * (180 / np.pi) * -1
 std_3 = np.arcsin(x_3_std)    * (180 / np.pi) * -1
 
+angle_N1 = np.arcsin(X_N1)   * (180 / np.pi) * -1
+std_N1 = np.arcsin(std_X_N1) * (180 / np.pi) * -1
 
-range_920 = np.where(angle_920 == max(angle_920))
-range_921 = np.where(angle_921 == max(angle_921))
-range_1021 = np.where(angle_1021 == max(angle_1021))
-range_1026 = np.where(angle_1026 == max(angle_1026))
-range_404 = np.where(angle_404 == max(angle_404))
-range_1 = np.where(angle_1 == max(angle_1))
-range_3 = np.where(angle_3 == max(angle_3))
+#angle_N2 = np.arcsin(X_N2)   * (180 / np.pi) * -1
+#std_N2 = np.arcsin(std_X_N2) * (180 / np.pi) * -1
 
-
-# Plot for the STD in Y direction
-plt.figure()
-#plt.title('Angle of Roll After Impact')
-#plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
-#plt.ylabel('Angle of Bend in Degrees')
-#plt.errorbar(time_1021,angle_1021,yerr=std_1021,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Hinge')
-#plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='0.00768 Nm')
-plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
-#plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='0.0153 Nm')
-#plt.errorbar(time_1026,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='10.4-Degree, Hinge')
-#plt.legend(loc='upper left')
-plt.xlim(0,3)
-plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/time_series_angle.png')
-
-# Plot for the STD in Y direction
-plt.figure()
-#plt.title('Angle of Roll After Impact')
-#plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
-#plt.ylabel('Angle of Bend in Degrees')
-plt.errorbar(time_1021,angle_1021,yerr=std_1021,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
-plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
-plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
-plt.errorbar(time_1026,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
-#plt.legend(loc='lower left')
-plt.xlim(0,5)
-plt.ylim(0,4)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/all_angle.png')
-
-# Plot for the STD in Y direction
-plt.figure()
-plt.title('Angle of Roll After Impact')
-plt.xlabel('Non-Dimensional Time ( t * v / l )')
-plt.ylabel('Angle of Bend in Degrees')
-plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='0.00768 Nm')
-plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='0.0180 Nm')
-plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='0.0153 Nm')
-plt.errorbar(time_04, angle_404,yerr=std_404,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='Fixed')
-plt.legend(loc='upper left')
-plt.xlim(0,2)
-plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/stiffness_angle.png')
-
-# Plot for the STD in Y direction
-plt.figure()
-plt.title('Angle of Roll After Impact')
-plt.xlabel('Non-Dimensional Time ( t * v / l )')
-plt.ylabel('Angle of Bend in Degrees')
-plt.errorbar(time_1021,angle_1021,yerr=std_1021,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Hinge')
-plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='22.7-Degree, Hinge')
-plt.errorbar(time_1026,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='10.4-Degree, Hinge')
-plt.errorbar(time_3, angle_3,yerr=std_3,linestyle='--',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Fixed')
-plt.errorbar(time_04, angle_404,yerr=std_404,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='22.7-Degree, Fixed')
-plt.errorbar(time_1, angle_1,yerr=std_1,linestyle='--',fmt='black',ecolor='silver',elinewidth=3,label='10.4-Degree, Fixed')
-plt.legend(loc='upper left')
-plt.xlim(0,2)
-plt.ylim(0,80)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/asymmetric_angle.png')
 
 # Normalize X Values
 
-switch_N1 = np.argmin(X_N1)
-switch_N2 = np.argmin(X_N2)
+switch_N1 = np.argmin(X_N1[:-40])
+#switch_N2 = np.argmin(X_N2)
 switch_H28 = np.argmax(angle_1021)
 switch_S3 = np.argmax(angle_918[:-60])
 switch_S2 = np.argmax(angle_920)
 switch_S1 = np.argmax(angle_921)
 switch_H10 = np.argmax(angle_1026)
 
+angle_N1[switch_N1:] = angle_N1[switch_N1:] + (angle_N1[switch_N1] - angle_N1[switch_N1:]) * 2
+#angle_N2[switch_N2:] = angle_N2[switch_N2:] + (angle_N2[switch_N2] - angle_N2[switch_N2:]) * 2
 angle_1021[switch_H28:] = angle_1021[switch_H28:] + (angle_1021[switch_H28] - angle_1021[switch_H28:]) * 2
 angle_918[switch_S3:] = angle_918[switch_S3:] + (angle_918[switch_S3] - angle_918[switch_S3:]) * 2
 angle_920[switch_S2:] = angle_920[switch_S2:] + (angle_920[switch_S2] - angle_920[switch_S2:]) * 2
 angle_921[switch_S1:] = angle_921[switch_S1:] + (angle_921[switch_S1] - angle_921[switch_S1:]) * 2
 angle_1026[switch_H10:] = angle_1026[switch_H10:] + (angle_1026[switch_H10] - angle_1026[switch_H10:]) * 2
 
+angle_N1 = (angle_N1 / angle_N1[switch_N1]) * 90
+#angle_N2 = (angle_N2 / angle_N2[switch_N2]) * 90
 angle_1021 = (angle_1021 / angle_1021[switch_H28]) * 90
 angle_918 = (angle_918 / angle_918[switch_S3]) * 90
 angle_920 = (angle_920 / angle_920[switch_S2]) * 90
@@ -243,7 +177,7 @@ angle_921 = (angle_921 / angle_921[switch_S1]) * 90
 angle_1026 = (angle_1026 / angle_1026[switch_H10]) * 90
 
 
-pinch_off = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinch_off_depth.txt',skiprows=1)
+pinch_off = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinch_off_time.txt',skiprows=1)
 H10_pinch_off = 2.5 / ( pinch_off[0] + fall_bl )
 F10_pinch_off = 2.5 / ( pinch_off[1] + spring_bl )
 T136_pinch_off = 2.5 / ( pinch_off[2] + fall_bl )
@@ -252,6 +186,7 @@ T153_pinch_off = 2.5 / ( pinch_off[4] + fall_bl )
 F22_pinch_off = 2.5 / ( pinch_off[5] + spring_bl )
 H28_pinch_off = 2.5 / ( pinch_off[6] + fall_bl )
 F28_pinch_off = 2.5 / ( pinch_off[7] + spring_bl )
+H17_pinch_off = 2.5 / ( pinch_off[8] + fall_bl )
 
 nonD_H10 = data_1026[:,0] * H10_pinch_off
 nonD_F10 = data_1[:,0] * F10_pinch_off
@@ -261,6 +196,7 @@ nonD_T153 = data_921[:,0] * T153_pinch_off
 nonD_F22 = data_04[:,0] * F22_pinch_off
 nonD_H28 = data_1021[:,0] * H28_pinch_off
 nonD_F28 = data_3[:,0] * F28_pinch_off
+nonD_H17 = data_817_n1[:,0] * H17_pinch_off
 
 # Plot for the STD in Y direction
 plt.figure()
@@ -271,15 +207,16 @@ plt.errorbar(nonD_T136[:-50],angle_918[:-50],yerr=std_918[:-50],linestyle='-',fm
 plt.errorbar(nonD_H22,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
 plt.errorbar(nonD_T153,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
 plt.errorbar(nonD_H28[:-50],angle_1021[:-50],yerr=std_1021[:-50],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
+plt.errorbar(nonD_H17,angle_N1,yerr=std_N1,linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(nonD_H10,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 #plt.errorbar(nonD_F28, angle_3,yerr=std_3,linestyle='--',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Fixed')
 #plt.errorbar(nonD_F22, angle_404,yerr=std_404,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='22.7-Degree, Fixed')
 #plt.errorbar(nonD_F10, angle_1,yerr=std_1,linestyle='--',fmt='black',ecolor='silver',elinewidth=3,label='10.4-Degree, Fixed')
 #plt.legend(loc='upper left')
-plt.xlim(0,1.6)
-plt.ylim(0,100)
+plt.xlim(0,2)
+plt.ylim(0,90)
+#plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/pinchOff_angle.png')#_error.png')
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinchOff_angle.png')#_error.png')
-
 
 time_to_turn = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
 time_to_turn_depth.txt')
@@ -288,24 +225,28 @@ T136_time_to_turn = time_to_turn[1]
 H22_time_to_turn = time_to_turn[2]
 T153_time_to_turn = time_to_turn[3]
 H10_time_to_turn = time_to_turn[4]
+H17_time_to_turn = time_to_turn[5]
 
 time_918 = data_918[:,0] * fall_shape
 time_920 = data_920[:,0] * fall_shape
 time_921 = data_921[:,0] * fall_shape
 time_1021 = data_1021[:,0] * fall_shape
 time_1026 = data_1026[:,0] * fall_shape
+time_817 = data_817_n1[:,0] * fall_shape
 
 nonD_H28 = time_1021 / H28_time_to_turn
 nonD_H22 = time_920 / H22_time_to_turn
 nonD_T136 = time_918 / T136_time_to_turn
 nonD_T153 = time_921 / T153_time_to_turn
 nonD_H10 = time_1026 / H10_time_to_turn
+nonD_H17 = time_N1 / H17_time_to_turn
 
 # Plot for the STD in Y direction
 plt.figure()
 #plt.title('Angle of Roll After Impact')
 #plt.xlabel('Non-Dimensional Time ( Time (s) / Time to Turn (s) )')
 #plt.ylabel('Angle of Bend in Degrees')
+plt.errorbar(nonD_H17,angle_N1,yerr=std_N1,linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(nonD_H28[:-50],angle_1021[:-50],yerr=std_1021[:-50],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
 plt.errorbar(nonD_T136[:-50],angle_918[:-50],yerr=std_918[:-50],linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
 plt.errorbar(nonD_H22,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
@@ -313,60 +254,59 @@ plt.errorbar(nonD_T153,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolo
 plt.errorbar(nonD_H10,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 #plt.legend(loc='upper left')
 plt.xlim(0,1.2)
-plt.ylim(0,100)
+plt.ylim(0,90)
+#plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/\
+#timeTurn_angle.png')#_error.png')
 plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
 timeTurn_angle.png')#_error.png')
 
-
 # Plot for the STD in Y direction
 plt.figure()
-#plt.title('Angle of Roll After Impact')
-#plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
-#plt.ylabel('Angle of Bend in Degrees')
-#plt.errorbar(time_1021,angle_1021,yerr=std_1021,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-#plt.errorbar(time_918,angle_918,yerr=std_918,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
 plt.errorbar(time_920,angle_920,yerr=std_920,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
-#plt.errorbar(time_921,angle_921,yerr=std_921,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
-#plt.errorbar(time_1026,angle_1026,yerr=std_1026,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
-#plt.plot(time_1021[switch_H28],angle_1021[switch_H28],'o')
-#plt.plot(time_918[switch_S3],angle_918[switch_S3],'o')
-#plt.plot(time_920[switch_S2],angle_920[switch_S2],'o')
-#plt.plot(time_921[switch_S1],angle_921[switch_S1],'o')
-#plt.plot(time_1026[switch_H10],angle_1026[switch_H10],'o')
-#plt.legend(loc='lower left')
 plt.xlim(0,3)
 plt.ylim(0,100)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/W22S2_angle_sin_and_cos.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/W22S2_angle_sin_and_cos.png')
 
 # Plot for the STD in Y direction
 plt.figure()
-#plt.title('Angle of Roll After Impact')
-#plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
-#plt.ylabel('Angle of Bend in Degrees')
-#plt.errorbar(time_1021[:switch_H28],angle_1021[:switch_H28],yerr=std_1021[:switch_H28],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-#plt.errorbar(time_918[:switch_S3],angle_918[:switch_S3],yerr=std_918[:switch_S3],linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
 plt.errorbar(time_920[:switch_S2],angle_920[:switch_S2],yerr=std_920[:switch_S2],linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
-#plt.errorbar(time_921[:switch_S1],angle_921[:switch_S1],yerr=std_921[:switch_S1],linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
-#plt.errorbar(time_1026[:switch_H10],angle_1026[:switch_H10],yerr=std_1026[:switch_H10],linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
-#plt.legend(loc='lower left')
 plt.xlim(0,3)
 plt.ylim(0,90)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/W22S2_angle_stop_at_90.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/W22S2_angle_stop_at_90.png')
 
 # Plot for the STD in Y direction
 plt.figure()
 #plt.title('Angle of Roll After Impact')
 #plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
 #plt.ylabel('Angle of Bend in Degrees')
-plt.errorbar(time_1021[:switch_H28],angle_1021[:switch_H28],yerr=std_1021[:switch_H28],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-plt.errorbar(time_918[:switch_S3],angle_918[:switch_S3],yerr=std_918[:switch_S3],linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
-plt.errorbar(time_920[:switch_S2],angle_920[:switch_S2],yerr=std_920[:switch_S2],linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
+#plt.errorbar(time_N2[:switch_N2],angle_N2[:switch_N2],yerr=std_N2[:switch_N2], linestyle='-',fmt='orange',ecolor='bisque',elinewidth=3,label='W17 S1')
+#plt.errorbar(time_1026[:switch_H10],angle_1026[:switch_H10],yerr=std_1026[:switch_H10],linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
+#plt.errorbar(time_N1[:switch_N1],angle_N1[:switch_N1],yerr=std_N1[:switch_N1], linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(time_921[:switch_S1],angle_921[:switch_S1],yerr=std_921[:switch_S1],linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
-plt.errorbar(time_1026[:switch_H10],angle_1026[:switch_H10],yerr=std_1026[:switch_H10],linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
+plt.errorbar(time_920[:switch_S2],angle_920[:switch_S2],yerr=std_920[:switch_S2],linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
+plt.errorbar(time_918[:switch_S3],angle_918[:switch_S3],yerr=std_918[:switch_S3],linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
+#plt.errorbar(time_1021[:switch_H28],angle_1021[:switch_H28],yerr=std_1021[:switch_H28],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
 #plt.legend(loc='lower left')
-plt.xlim(0,0.5)
 plt.ylim(0,90)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/angle_stop_at_0.5bl.png')
+plt.xlim(0,5)
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/Dissertation Defense Pictures.png')
 
+
+# Plot for the STD in Y direction
+plt.figure()
+#plt.title('Angle of Roll After Impact')
+#plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
+#plt.ylabel('Angle of Bend in Degrees')
+#plt.errorbar(time_N2[:switch_N2],angle_N2[:switch_N2],yerr=std_N2[:switch_N2], linestyle='-',fmt='orange',ecolor='bisque',elinewidth=3,label='W17 S1')
+#plt.errorbar(time_1026[:switch_H10],angle_1026[:switch_H10],yerr=std_1026[:switch_H10],linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
+#plt.errorbar(time_N1[:switch_N1],angle_N1[:switch_N1],yerr=std_N1[:switch_N1], linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
+#plt.errorbar(time_921[:switch_S1],angle_921[:switch_S1],yerr=std_921[:switch_S1],linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.0153 Nm')
+plt.errorbar(time_920[:switch_S2],angle_920[:switch_S2],yerr=std_920[:switch_S2],linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
+#plt.errorbar(time_918[:switch_S3],angle_918[:switch_S3],yerr=std_918[:switch_S3],linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
+#plt.errorbar(time_1021[:switch_H28],angle_1021[:switch_H28],yerr=std_1021[:switch_H28],linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
+#plt.legend(loc='lower left')
+plt.ylim(0,90)
+plt.xlim(0,3)
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/time_series_angle.png')
 
 print(';)')

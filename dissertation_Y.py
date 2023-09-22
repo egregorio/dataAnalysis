@@ -7,9 +7,10 @@ from get_t_bar import *
 #plt.plot(time_920,y_920_mean,color='deepskyblue',label='0.0154 Nm')
 #plt.plot(time_921,y_921_mean,color='mediumpurple',label='0.0153 Nm')
 
-# Data for hinge diver models -- hinge / hips
+# Data for impact velocity plot, hinge diver models -- tracked marker is hinge / hips
 hips_T136 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9182021_hinge')
 hips_T153 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9212021_hinge')
+hips_H17 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_hinge')
 hips_H10 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10262021_hinge')
 hips_H22 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/9202021_hinge')
 hips_H28 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10212021_hinge')
@@ -19,6 +20,7 @@ data_T153 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive
 data_H10 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10262021_data')
 data_H22 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/09202021_data')
 data_H28 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/10212021_data')
+data_817_n1 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/08172022_data')
 # Import data from 04/04, no hinge, no hole
 data_F22 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04042022_data')
 data_F10 = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/dataAnalysis/dimensionalData/04052022_a1_data')
@@ -35,6 +37,12 @@ fall_shape = 2.5 / fall_bl
 spring_shape = 2.5 / spring_bl
 
 # Get all the dimensional values and convert meters to body lengths
+time_N1 = data_817_n1[:,0] * fall_shape
+std_Y_N1 = data_817_n1[:,4] / fall_bl
+Y_N1 = data_817_n1[:,3] / fall_bl
+Y_N1 = Y_N1 - Y_N1[0]
+Y_N1[0] = 0
+
 time_T136 = data_T136[:,0] * fall_shape
 std_T136 = data_T136[:,4] / fall_bl
 mean_T136 = data_T136[:,3] / fall_bl
@@ -136,9 +144,10 @@ plt.figure()
 #plt.xlabel('Non-Dimensional Time ( Time (s) * Impact Velocity (m/s) / Arm Length (m) )')
 #plt.ylabel('Depth (Arm Lengths)')
 plt.errorbar(time_H28,mean_H28,yerr=std_H28,linestyle='-',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='W28')
-plt.errorbar(time_T136,mean_T136,yerr=std_T136,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3: 0.00768 Nm')
-plt.errorbar(time_H22,mean_H22,yerr=std_H22,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2: 0.0180 Nm')
-plt.errorbar(time_T153,mean_T153,yerr=std_T153,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1: 0.153 Nm')
+plt.errorbar(time_T136,mean_T136,yerr=std_T136,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')#: 0.00768 Nm')
+plt.errorbar(time_H22,mean_H22,yerr=std_H22,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')#: 0.0180 Nm')
+plt.errorbar(time_T153,mean_T153,yerr=std_T153,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')#: 0.153 Nm')
+plt.errorbar(time_N1, Y_N1, yerr=std_Y_N1, linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(time_H10,mean_H10,yerr=std_H10,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 #plt.errorbar(time_F28,mean_F28,yerr=std_F28,linestyle='--',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Fixed')
 #plt.errorbar(time_F22,mean_F22,yerr=std_F22,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='22.7-Degree, Fixed')
@@ -146,53 +155,63 @@ plt.errorbar(time_H10,mean_H10,yerr=std_H10,linestyle='-',fmt='black',ecolor='si
 plt.legend(loc='lower left')
 plt.xlim(0,5)
 plt.ylim(-5,0)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/all_trajectory.png')#_error.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/all_trajectory.png')#_error.png')
 
-hips_time_T136 = 1 + hips_T136[:,0] * fall_shape
-hips_mean_T136 = hips_T136[:,3] / fall_bl
+hips_time_T136 = hips_T136[:,0]# * fall_shape
+hips_mean_T136 = hips_T136[:,3] #/ fall_bl
 
-hips_time_T153 = 1 + hips_T153[:,0] * fall_shape
-hips_mean_T153 = hips_T153[:,3] / fall_bl
+hips_time_T153 = hips_T153[:,0]# * fall_shape
+hips_mean_T153 = hips_T153[:,3] #/ fall_bl
 
-hips_time_H10 = 1 + hips_H10[:,0] * fall_shape
-hips_mean_H10 = hips_H10[:,3] / fall_bl
+hips_time_H10 = hips_H10[:,0]# * fall_shape
+hips_mean_H10 = hips_H10[:,3] #/ fall_bl
 
-hips_time_H22 = 1 + hips_H22[:,0] * fall_shape
-hips_mean_H22 = hips_H22[:,3] / fall_bl
+hips_time_H17 = hips_H17[:,0]# * fall_shape
+hips_mean_H17 = hips_H17[:,3] #/ fall_bl
 
-hips_time_H28 = 1 + hips_H28[:,0] * fall_shape
-hips_mean_H28 = hips_H28[:,3] / fall_bl
+hips_time_H22 = hips_H22[:,0]# * fall_shape
+hips_mean_H22 = hips_H22[:,3] #/ fall_bl
+
+hips_time_H28 = hips_H28[:,0]# * fall_shape
+hips_mean_H28 = hips_H28[:,3] #/ fall_bl
 
 low = 50
 high = 200
 
 slope_H28, b_H28 = np.polyfit(hips_time_H28[low:high],hips_mean_H28[low:high],1)
 slope_H22, b_H22 = np.polyfit(hips_time_H22[low:high],hips_mean_H22[low:high],1)
+slope_H17, b_H17 = np.polyfit(hips_time_H17[low:high],hips_mean_H17[low:high],1)
 slope_H10, b_H10 = np.polyfit(hips_time_H10[low:high],hips_mean_H10[low:high],1)
 slope_T136, b_T136 = np.polyfit(hips_time_T136[low:high],hips_mean_T136[low:high],1)
 slope_T153, b_T153 = np.polyfit(hips_time_T153[low:high],hips_mean_T153[low:high],1)
 
 Linear_H28 = get_linearFit(slope_H28, hips_time_H28)
 Linear_H22 = get_linearFit(slope_H22, hips_time_H22)
+Linear_H17 = get_linearFit(slope_H17, hips_time_H10)
 Linear_H10 = get_linearFit(slope_H10, hips_time_H10)
 Linear_T136 = get_linearFit(slope_T136, hips_time_T136)
 Linear_T153 = get_linearFit(slope_T153, hips_time_T153)
 
-plt.figure()
-plt.title('Trajectory of Arms in Y Direction After Impact')# for 22.7 Degree Models')
-plt.xlabel('Non-Dimensional Time ( t * v / l )')
-plt.ylabel('Depth (Arm Lengths)')
-plt.plot(hips_time_H28,Linear_H28,color='limegreen',label='28.6-Degree, Hinge')
-plt.plot(hips_time_H22,Linear_H22,color='royalblue',label='0.0180Nm')
-plt.plot(hips_time_H10,Linear_H10,color='black',label='10.4-Degree, Hinge')
-plt.plot(hips_time_T136,Linear_T136,color='mediumorchid',label='0.00768Nm')
-plt.plot(hips_time_T153,Linear_T153,color='darkcyan',label='0.0153Nm')
-plt.legend(loc='lower left')
-plt.xlim(0,4)
-#plt.ylim(-2,0)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/hinge_trajectory.png')#_error.png')
+print('W28 = ',slope_H28,' W22 S3 = ',slope_T136,' W22 S2 = ',slope_H22,' W22 S1 = ',slope_T153,' W17 = ',slope_H17,' W10 = ',slope_H10)
 
-pinch_off = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinch_off_depth.txt',skiprows=1)
+plt.figure()
+#plt.title('Trajectory of Arms in Y Direction After Impact')# for 22.7 Degree Models')
+plt.xlabel('Time (s)')
+plt.ylabel('Depth (m)')
+plt.plot(hips_time_H28,Linear_H28,color='limegreen',label='W28')
+plt.plot(hips_time_T136,Linear_T136,color='mediumorchid',label='W22 S3')
+plt.plot(hips_time_H22,Linear_H22,color='royalblue',label='W22 S2')
+plt.plot(hips_time_T153,Linear_T153,color='darkcyan',label='W22 S1')
+plt.plot(hips_time_H10,Linear_H17,color='firebrick',label='W17')
+#plt.plot(hips_time_H17,hips_mean_H17,color='firebrick',label='W17')
+#plt.plot(hips_time_H10,hips_mean_H10,color='black',label='W10')
+plt.plot(hips_time_H10,Linear_H10,color='black',label='W10')
+plt.legend(loc='lower left')
+plt.xlim(0,0.014)
+plt.ylim(-0.08,0.02)
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/hinge_trajectory.png')#_error.png')
+
+pinch_off = np.loadtxt('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinch_off_time.txt',skiprows=1)
 H10_pinch_off = 2.5 / ( pinch_off[0] + fall_bl )
 F10_pinch_off = 2.5 / ( pinch_off[1] + spring_bl )
 T136_pinch_off = 2.5 / ( pinch_off[2] + fall_bl )
@@ -201,8 +220,10 @@ T153_pinch_off = 2.5 / ( pinch_off[4] + fall_bl )
 F22_pinch_off = 2.5 / ( pinch_off[5] + spring_bl )
 H28_pinch_off = 2.5 / ( pinch_off[6] + fall_bl )
 F28_pinch_off = 2.5 / ( pinch_off[7] + spring_bl )
+H17_pinch_off = 2.5 / ( pinch_off[8] + fall_bl )
 
 nonD_H10 = data_H10[:,0] * H10_pinch_off
+nonD_H17 = data_817_n1[:,0] * H17_pinch_off
 nonD_F10 = data_F10[:,0] * F10_pinch_off
 nonD_T136 = data_T136[:,0] * T136_pinch_off
 nonD_H22 = data_H22[:,0] * H22_pinch_off
@@ -220,14 +241,15 @@ plt.errorbar(nonD_H28,mean_H28,yerr=std_H28,linestyle='-',fmt='limegreen',ecolor
 plt.errorbar(nonD_T136,mean_T136,yerr=std_T136,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
 plt.errorbar(nonD_H22,mean_H22,yerr=std_H22,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
 plt.errorbar(nonD_T153,mean_T153,yerr=std_T153,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
+plt.errorbar(nonD_H17,Y_N1,yerr=std_Y_N1,linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(nonD_H10,mean_H10,yerr=std_H10,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 #plt.errorbar(nonD_F28,mean_F28,yerr=std_F28,linestyle='--',fmt='limegreen',ecolor='lightgreen',elinewidth=3,label='28.6-Degree, Fixed')
 #plt.errorbar(nonD_F22,mean_F22,yerr=std_F22,linestyle='--',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='22.7-Degree, Fixed')
 #plt.errorbar(nonD_F10,mean_F10,yerr=std_F10,linestyle='--',fmt='black',ecolor='silver',elinewidth=3,label='10.4-Degree, Fixed')
 #plt.legend(loc='upper left')
-plt.xlim(0,1.6)
+plt.xlim(0,2)
 plt.ylim(-5,0)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/pinch_off/pinchOff_trajectory.png')#_error.png')
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/pinchOff_trajectory.png')#_error.png')
 
 
 
@@ -350,10 +372,12 @@ T136_time_to_turn = time_to_turn[1]
 H22_time_to_turn = time_to_turn[2]
 T153_time_to_turn = time_to_turn[3]
 H10_time_to_turn = time_to_turn[4]
+H17_time_to_turn = time_to_turn[5]
 
 nonD_H28 = time_H28 / H28_time_to_turn
 nonD_H22 = time_H22 / H22_time_to_turn
 nonD_H10 = time_H10 / H10_time_to_turn
+nonD_H17 = time_N1 / H17_time_to_turn
 nonD_T136 = time_T136 / T136_time_to_turn
 nonD_T153 = time_T153 / T153_time_to_turn
 
@@ -364,6 +388,10 @@ mean_T136[0] = 0
 mean_T153 = data_T153[:,3] / fall_bl
 mean_T153 = mean_T153 - mean_T153[0]
 mean_T153[0] = 0
+
+mean_H17 = data_817_n1[:,3] / fall_bl
+mean_H17 = mean_H17 - mean_H17[0]
+mean_H17[0] = 0
 
 mean_H10 = data_H10[:,3] / fall_bl
 mean_H10 = mean_H10 - mean_H10[0]
@@ -386,11 +414,12 @@ plt.errorbar(nonD_H28,mean_H28,yerr=std_H28,linestyle='-',fmt='limegreen',ecolor
 plt.errorbar(nonD_T136,mean_T136,yerr=std_T136,linestyle='-',fmt='mediumorchid',ecolor='thistle',elinewidth=3,label='W22 S3')
 plt.errorbar(nonD_H22,mean_H22,yerr=std_H22,linestyle='-',fmt='royalblue',ecolor='lightsteelblue',elinewidth=3,label='W22 S2')
 plt.errorbar(nonD_T153,mean_T153,yerr=std_T153,linestyle='-',fmt='darkcyan',ecolor='paleturquoise',elinewidth=3,label='W22 S1')
+plt.errorbar(nonD_H17,Y_N1,yerr=std_Y_N1,linestyle='-',fmt='firebrick',ecolor='mistyrose',elinewidth=3,label='W17')
 plt.errorbar(nonD_H10,mean_H10,yerr=std_H10,linestyle='-',fmt='black',ecolor='silver',elinewidth=3,label='W10')
 plt.legend(loc='lower left')
 plt.xlim(0,1.2)
 plt.ylim(-5,0)
-plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/paper_cavity_visualization/body_and_cavity/\
+plt.savefig('/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Box Sync/air cavity analysis/dissertation plots/\
 timeTurn_depth.png')#_error.png')
 
 
