@@ -10,6 +10,7 @@ def splashAnalysis(experiment):
 	# Name the files you want to import
 	P = '/Users/elizabeth/egregorio@gwmail.gwu.edu - Google Drive/My Drive/Summer-2023-Diver-Experiments/';
 	R = 'raw_data/';
+	J = 'jet_data/';
 	D = experiment;
 	T = '/Tracking';
 	A = 'analysis/';
@@ -17,10 +18,15 @@ def splashAnalysis(experiment):
 
 	# Put together the file names
 	vel = glob.glob(P + R + D + T + "/*.csv")
+	jet = glob.glob(P + J + D + T + "/*.csv")
 
 	vfiles = glob.glob(P + R + D + T + '/' + F)
+	jfiles = glob.glob(P + J + D + T + '/' + F)
 	vel_files = np.loadtxt(vfiles[0],dtype='str')
+	jet_files = np.loadtxt(jfiles[0],dtype='str')
+
 	vel_path = glob.glob(P + R + D + T + '/')
+	jet_path = glob.glob(P + J + D + T + '/')
 
 	# Initialize empty lists for constants
 	waterlines = []; ppm_air = []; ppm_water = []; impact_time = []
@@ -33,8 +39,8 @@ def splashAnalysis(experiment):
 		findImpactVelocity(vel, vel_path, vel_files, ppm_air, ppm_water, impact_time, waterlines)
 
 	# Find the depth of pinch off and splash height
-	pinch, pinch_time, len_pinch = \
-		findSplash(vel, vel_path, vel_files, waterlines, ppm_water)
+	pinch1, pinch2, splash, splash_time, pinch_time, len_pinch1, len_pinch2, len_splash = \
+		findSplash(jet, jet_path, jet_files, waterlines, ppm_air, ppm_water)
 
 	# Save a file that lists: file name, impact velocity, pinch off depth 1 & 2, splash height
 	scalar_array = zip(impact1, impact2, entry1, entry2, entry3, entry4, pinch1, pinch2, pinch_time, splash, splash_time)
@@ -101,8 +107,8 @@ def splashAnalysis(experiment):
 
 
 	# Find the pinch off and splash velocity profiles
-	findSplashVelocityArrays(vel, vel_path, vel_files, waterlines, ppm_water, impact_time, pinch_time, pinch_vel, \
-		 pinch_t)
+	findSplashVelocityArrays(jet, jet_path, jet_files, waterlines, ppm_air, ppm_water, impact_time, pinch_time, pinch1_vel, pinch2_vel, \
+		 pinch1_t, pinch2_t, splash_vel, splash_pos, splash_t)
 
 	# Save each to their own file
 	pinch1_array = np.array(pinch1_vel)
@@ -288,36 +294,57 @@ def findImpactVelocity(velocity_file, vel_path, vel_file_names, all_ppm_air, all
 	return  all_impact1, all_impact2, all_entry1, all_entry2, all_entry3, all_entry4,\
 		len_impact1, len_impact2, len_entry1, len_entry2
 
-def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water):
+def findSplash(jet_file, jet_path, jet_file_names, all_waterlines, all_ppm_air, all_ppm_water):
 	# Create empty lists to save scalars to
-	all_pinch = []
+	all_pinch1 = []; all_pinch2 = []
+	all_splash = []; all_splash_time = []
 	pinch_list = []
 	# Length of non-zero sections, will be used to initialize arrays
-	len_pinch = []
+	len_pinch1 = []; len_pinch2 = []
+	len_splash = []
 	
-	# Loop through all files
-	for i in range(0,len(vel_file)):
-		currentFile = glob.glob(vel_path[0] + vel_file_names[i] + ".csv")
+	# Loop through all jet files
+	for i in range(0,len(jet_file)):
+		currentFile = glob.glob(jet_path[0] + jet_file_names[i] + ".csv")
 		# Load file as a numpy array
-		vel0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
+		jet0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
 		# Initialize empty lists
-		pinch = []; pinch_time1 = []
-		for j in range(len(vel0)):
-			if vel0[j][8] != 0:
+		pinch1 = []; pinch2 = []; splash = []
+		pinch1_time = []; pinch2_time = []; splash_time = []
+		for j in range(len(jet0)):
+			if jet0[j][0] != 0:
 				# find the distance to the waterline and save
-				depth = vel0[j][8] - all_waterlines[i]
-				pinch.append(depth / all_ppm_water[i])
+				depth = jet0[j][0] - all_waterlines[i]
+				pinch1.append(depth / all_ppm_water[i])
 				# save time
-				pinch_time.append(j / 5150)
+				pinch1_time.append(j / 5150)
+			if jet0[j][2] != 0:
+				# find the distance to the waterline and save
+				depth = jet0[j][2] - all_waterlines[i]
+				pinch2.append(depth / all_ppm_water[i])
+				# save time
+				pinch2_time.append(j / 5150)
+			if jet0[j][4] != 0:
+				height = abs(jet0[j][4] - all_waterlines[i])
+				splash.append(height / all_ppm_air[i])
+				# save time
+				splash_time.append(j / 5150)
 		# Calculate time of splash measurement
 		pinch_time = min(pinch1_time[0],pinch2_time[0])
 		pinch_list.append(pinch_time)
+		splash_time[-1] = splash_time[-1] - pinch_time
 		# Save the depth of pinch off, splash height, and time of splash measurement
-		all_pinch.append(pinch1[0])
+		all_pinch1.append(pinch1[0])
+		all_pinch2.append(pinch2[0])
+		all_splash.append(max(splash))
+		findindex = splash.index(max(splash))
+		all_splash_time.append(splash_time[findindex])
 		# Save the lengths
-		len_pinch.append(len(pinch1))
+		len_pinch1.append(len(pinch1))
+		len_pinch2.append(len(pinch2))
+		len_splash.append(len(splash))
 
-	return all_pinch, pinch_list, len_pinch
+	return all_pinch1, all_pinch2, all_splash, all_splash_time, pinch_list, len_pinch1, len_pinch2, len_splash
 
 def createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinch1, len_pinch2, len_splash):
 	# Create empty arrays the right size to save all the velocity profiles
@@ -392,27 +419,47 @@ def findEntryVelocityArrays(velocity_file, vel_path, vel_file_names, all_waterli
 				o = o + 1
 	return
 
-def findSplashVelocityArrays(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water, all_impact_time, pinch_list, \
-		 pinch_vel, pinch_t):
+def findSplashVelocityArrays(jet_file, jet_path, jet_file_names, all_waterlines, all_ppm_air, all_ppm_water, all_impact_time, pinch_list, \
+		 pinch1_vel, pinch2_vel, pinch1_t, pinch2_t, splash_vel, splash_pos, splash_t):
 
-# Loop through to save the pinch off velocity profile
-	for i in range(0,len(vel_file)):
-		currentFile = glob.glob(vel_path[0] + vel_file_names[i] + ".csv")
+# Loop through to save all the velocity arrays from jet
+	for i in range(0,len(jet_file)):
+		currentFile = glob.glob(jet_path[0] + jet_file_names[i] + ".csv")
 		# Load file as a numpy array
-		vel0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
+		jet0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
 		# Initialize empty lists
-		pinch_time = []
-		l = 0
-		for j in range(len(vel0)):
-			if vel0[j][8] != 0:
+		pinch1_time = []; pinch2_time = []; splash_time = []
+		l = 0; m = 0; n = 0
+		for j in range(len(jet0)):
+			if jet0[j][0] != 0:
 				# find the distance to the waterline and save
-				depth = vel0[j][8] - all_waterlines[i]
+				depth = jet0[j][0] - all_waterlines[i]
 				depth = depth / all_ppm_water[i]
-				pinch_vel[i][l] = depth
+				pinch1_vel[i][l] = depth
 				# save time
 				time1 = ( j - pinch_list[i] ) / 5150
-				pinch_t[i][l] = time1
+				pinch1_t[i][l] = time1
 				l = l + 1
+			if jet0[j][2] != 0:
+				# find the distance to the waterline and save
+				depth = jet0[j][2] - all_waterlines[i]
+				depth = depth / all_ppm_water[i]
+				pinch2_vel[i][m] = depth
+				# save time
+				time2 = (j - pinch_list[i]) / 5150
+				pinch2_t[i][m] = time2
+				m = m + 1
+			if jet0[j][4] != 0:
+				# find the distance to the waterline and save
+				height = jet0[j][4] - all_waterlines[i]
+				x_pos = jet0[j][5] / all_ppm_air[i]
+				height = height / all_ppm_air[i]
+				splash_vel[i][n] = height
+				splash_pos[i][n] = x_pos
+				# save time
+				time3 = (j - pinch_list[i]) / 5150
+				splash_t[i][n] = time3
+				n = n + 1
 	return
 
 
