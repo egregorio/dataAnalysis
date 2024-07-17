@@ -34,10 +34,10 @@ def splashAnalysis(experiment):
 
 	# Find the depth of pinch off and splash height
 	pinch, pinch_time, len_pinch = \
-		findSplash(vel, vel_path, vel_files, waterlines, ppm_water)
+		findSplash(vel, vel_path, vel_files, waterlines, ppm_water, impact_time)
 
 	# Save a file that lists: file name, impact velocity, pinch off depth 1 & 2, splash height
-	scalar_array = zip(impact1, impact2, entry1, entry2, entry3, entry4, pinch1, pinch2, pinch_time, splash, splash_time)
+	scalar_array = zip(impact1, impact2, entry1, entry2, entry3, entry4, pinch, pinch_time)
 	scalar_path  = os.path.join( P, A, D + '_scalars.csv' )
 	with open(scalar_path, 'w', newline='') as f:
 		writer = csv.writer(f)#, fieldnames=scalar_header)
@@ -48,9 +48,8 @@ def splashAnalysis(experiment):
 
 	# Create empty arrays that will hold the velocity profiles
 	impact1_vel, impact2_vel, entry1_vel, entry2_vel, impact1_t, impact2_t, entry1_t, entry2_t,\
-                pinch1_vel, pinch2_vel, pinch1_t, pinch2_t, splash_vel, splash_pos, splash_t = \
-		createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinch1, \
-			len_pinch2, len_splash)
+                pinch_vel, pinch_t = \
+		createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinch)
 
 	# Find the impact and entry velocity profiles
 	findEntryVelocityArrays(vel, vel_path, vel_files, waterlines, ppm_air, ppm_water, impact_time, impact1_vel, impact2_vel, \
@@ -105,42 +104,16 @@ def splashAnalysis(experiment):
 		 pinch_t)
 
 	# Save each to their own file
-	pinch1_array = np.array(pinch1_vel)
-	pinch1_path = os.path.join(P, A, D + '_pinch1.csv' )
-	with open(pinch1_path, 'w', newline='') as f:
+	pinch_array = np.array(pinch_vel)
+	pinch_path = os.path.join(P, A, D + '_pinch.csv' )
+	with open(pinch_path, 'w', newline='') as f:
 		writer = csv.writer(f)
-		writer.writerows(pinch1_array)
-	pinch1_array = np.array(pinch1_t)
-	pinch1_path = os.path.join(P, A, D + '_pinch1_time.csv' )
-	with open(pinch1_path, 'w', newline='') as f:
+		writer.writerows(pinch_array)
+	pinch_array = np.array(pinch_t)
+	pinch_path = os.path.join(P, A, D + '_pinch_time.csv' )
+	with open(pinch_path, 'w', newline='') as f:
 		writer = csv.writer(f)
-		writer.writerows(pinch1_array)
-	pinch2_array = np.array(pinch2_vel)
-	pinch2_path = os.path.join(P, A, D + '_pinch2.csv' )
-	with open(pinch2_path, 'w', newline='') as f:
-		writer = csv.writer(f)
-		writer.writerows(pinch2_array)
-	pinch2_array = np.array(pinch2_t)
-	pinch2_path = os.path.join(P, A, D + '_pinch2_time.csv' )
-	with open(pinch2_path, 'w', newline='') as f:
-		writer = csv.writer(f)
-		writer.writerows(pinch2_array)
-
-	splash_array = np.array(splash_vel)
-	splash_path = os.path.join(P, A, D + '_splash.csv' )
-	with open(splash_path, 'w', newline='') as f:
-		writer = csv.writer(f)
-		writer.writerows(splash_array)
-	splash_array = np.array(splash_pos)
-	splash_path = os.path.join(P, A, D + '_splash_pos.csv' )
-	with open(splash_path, 'w', newline='') as f:
-		writer = csv.writer(f)
-		writer.writerows(splash_array)
-	splash_array = np.array(splash_t)
-	splash_path = os.path.join(P, A, D + '_splash_time.csv' )
-	with open(splash_path, 'w', newline='') as f:
-		writer = csv.writer(f)
-		writer.writerows(splash_array)
+		writer.writerows(pinch_array)
 
 	print( experiment, ' done! :)')
 	return
@@ -288,7 +261,7 @@ def findImpactVelocity(velocity_file, vel_path, vel_file_names, all_ppm_air, all
 	return  all_impact1, all_impact2, all_entry1, all_entry2, all_entry3, all_entry4,\
 		len_impact1, len_impact2, len_entry1, len_entry2
 
-def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water):
+def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water, all_impact_time):
 	# Create empty lists to save scalars to
 	all_pinch = []
 	pinch_list = []
@@ -301,25 +274,26 @@ def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water
 		# Load file as a numpy array
 		vel0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
 		# Initialize empty lists
-		pinch = []; pinch_time1 = []
+		pinch = []; pinch1_time = []
 		for j in range(len(vel0)):
 			if vel0[j][8] != 0:
 				# find the distance to the waterline and save
 				depth = vel0[j][8] - all_waterlines[i]
 				pinch.append(depth / all_ppm_water[i])
 				# save time
-				pinch_time.append(j / 5150)
+				this_time = j - all_impact_time[i]
+				pinch1_time.append(this_time / 5150)
 		# Calculate time of splash measurement
-		pinch_time = min(pinch1_time[0],pinch2_time[0])
+		pinch_time = pinch1_time[0]
 		pinch_list.append(pinch_time)
 		# Save the depth of pinch off, splash height, and time of splash measurement
-		all_pinch.append(pinch1[0])
+		all_pinch.append(pinch[0])
 		# Save the lengths
-		len_pinch.append(len(pinch1))
+		len_pinch.append(len(pinch))
 
 	return all_pinch, pinch_list, len_pinch
 
-def createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinch1, len_pinch2, len_splash):
+def createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinch):
 	# Create empty arrays the right size to save all the velocity profiles
 	impact1_vel = np.zeros((len(len_impact1),max(len_impact1)))
 	impact2_vel = np.zeros((len(len_impact2),max(len_impact2)))
@@ -329,16 +303,11 @@ def createEmptyArrays(len_impact1, len_impact2, len_entry1, len_entry2, len_pinc
 	impact2_t = np.zeros((len(len_impact2),max(len_impact2)))
 	entry1_t  = np.zeros(( len(len_entry1), max(len_entry1)))
 	entry2_t  = np.zeros(( len(len_entry2), max(len_entry2)))
-	pinch1_vel  = np.zeros(( len(len_pinch1), max(len_pinch1)))
-	pinch2_vel  = np.zeros(( len(len_pinch2), max(len_pinch2)))
-	pinch1_t  = np.zeros(( len(len_pinch1), max(len_pinch1)))
-	pinch2_t  = np.zeros(( len(len_pinch2), max(len_pinch2)))
-	splash_vel  = np.zeros(( len(len_splash), max(len_splash)))
-	splash_pos  = np.zeros(( len(len_splash), max(len_splash)))
-	splash_t  = np.zeros(( len(len_splash), max(len_splash)))
+	pinch_vel  = np.zeros(( len(len_pinch), max(len_pinch)))
+	pinch_t  = np.zeros(( len(len_pinch), max(len_pinch)))
 
 	return impact1_vel, impact2_vel, entry1_vel, entry2_vel, impact1_t, impact2_t, entry1_t, entry2_t, \
-		pinch1_vel, pinch2_vel, pinch1_t, pinch2_t, splash_vel, splash_pos, splash_t
+		pinch_vel, pinch_t
 
 def findEntryVelocityArrays(velocity_file, vel_path, vel_file_names, all_waterlines, all_ppm_air, all_ppm_water, all_impact_time, impact1_vel, \
 		 impact2_vel, entry1_vel, entry2_vel, impact1_t, impact2_t, entry1_t, entry2_t):
@@ -410,8 +379,8 @@ def findSplashVelocityArrays(vel_file, vel_path, vel_file_names, all_waterlines,
 				depth = depth / all_ppm_water[i]
 				pinch_vel[i][l] = depth
 				# save time
-				time1 = ( j - pinch_list[i] ) / 5150
-				pinch_t[i][l] = time1
+				this_time = (j - all_impact_time[i])/5150
+				pinch_t[i][l] = this_time
 				l = l + 1
 	return
 
