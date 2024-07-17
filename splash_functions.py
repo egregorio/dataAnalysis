@@ -43,7 +43,7 @@ def splashAnalysis(experiment):
 		writer = csv.writer(f)#, fieldnames=scalar_header)
 		writer.writerows(scalar_array)
 
-	#print(impact1)
+	#print(impact_time)
 	#print(entry1)
 
 	# Create empty arrays that will hold the velocity profiles
@@ -141,10 +141,10 @@ def findConstants(velocity_file, vel_path, vel_file_names):
 		for j in range(0,len(vel0)):
 			if vel0[j][0] != 0:
 				impact1.append(vel0[j][0])
-				impact1_time.append(i)
+				impact1_time.append(j)
 			if vel0[j][2] != 0:
 				impact2.append(vel0[j][2])
-				impact2_time.append(i)
+				impact2_time.append(j)
     
 		# Loop for ppm conversions
 		for j in range(0,len(vel0)):
@@ -275,7 +275,7 @@ def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water
 		vel0 = np.loadtxt(currentFile[0],delimiter=',',skiprows=0)
 		# Initialize empty lists
 		pinch = []; pinch1_time = []
-		for j in range(len(vel0)):
+		for j in range(0,len(vel0)):
 			if vel0[j][8] != 0:
 				# find the distance to the waterline and save
 				depth = vel0[j][8] - all_waterlines[i]
@@ -284,8 +284,7 @@ def findSplash(vel_file, vel_path, vel_file_names, all_waterlines, all_ppm_water
 				this_time = j - all_impact_time[i]
 				pinch1_time.append(this_time / 5150)
 		# Calculate time of splash measurement
-		pinch_time = pinch1_time[0]
-		pinch_list.append(pinch_time)
+		pinch_list.append(pinch1_time[0])
 		# Save the depth of pinch off, splash height, and time of splash measurement
 		all_pinch.append(pinch[0])
 		# Save the lengths
@@ -372,7 +371,7 @@ def findSplashVelocityArrays(vel_file, vel_path, vel_file_names, all_waterlines,
 		# Initialize empty lists
 		pinch_time = []
 		l = 0
-		for j in range(len(vel0)):
+		for j in range(0,len(vel0)):
 			if vel0[j][8] != 0:
 				# find the distance to the waterline and save
 				depth = vel0[j][8] - all_waterlines[i]
